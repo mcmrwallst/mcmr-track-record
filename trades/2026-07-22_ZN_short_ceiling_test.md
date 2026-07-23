@@ -13,7 +13,7 @@
 | **Planned risk** | ~4% of book |
 | **Key exits** | Hard stop / technical signal / Iran de-escalation + oil breakdown / Sept hike odds repricing |
 | **Event risk** | FOMC next week — on watch list |
-| **Thread** | [https://x.com/mcmrwallst/status/2080008904050876658?s=20] |
+| **Thread** | [https://x.com/mcmrwallst/status/2080171221656691106?s=20] |
 
 ---
 
@@ -21,7 +21,7 @@ THE FIRST CEILING TEST WITHOUT A SAFETY NET
 Why I'm short the 10Y into the range high 🚩
 
 1/
-NEW POSITION — SHORT ZN (10Y T-Note futures), 3 contracts
+NEW POSITION — SHORT ZN (10Y T-Note futures)
 Entry: 108'14'0 (~4.65% 10Y) — 22 Jul 2026, 14:30 ET
 Stop: 109'19'0, hard working order (~15bp rejection)
 Thesis invalidation: Iran de-escalation + oil breakdown / Sept hike odds change depending on the context...
@@ -69,6 +69,7 @@ What kills it (posted now so I can't move goalposts later):
 — Hard stop 109'19'0 — working order, no exceptions
 — My technical Signal
 — Iran de-escalation / oil breakdown → driver gone → out
+— Sept hike repricing fades materially (discretionary) → out
 
 FOMC next week: on watch list
 
