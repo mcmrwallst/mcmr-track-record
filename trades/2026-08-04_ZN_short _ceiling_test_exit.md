@@ -4,6 +4,8 @@
 **Instrument:** ZN (CBOT 10-Year U.S. Treasury Note futures)
 **Direction:** Short
 **Holding period:** 13 calendar days
+
+**Entry REPO:** https://github.com/mcmrwallst/mcmr-track-record/blob/main/trades/2026-07-22\_ZN\_short\_ceiling\_test\_open.md
 **Entry post:** @mcmrwallst, 2026-07-23 (thread, 9 parts)
 
 \---
@@ -12,7 +14,7 @@
 
 |Field|Value|
 |-|-|
-|Entry|108'14'0 |
+|Entry|108'14'0|
 |Entry timestamp|2026-07-22, 14:30 ET|
 |Working stop|109'00'0|
 |Exit trigger|109'00'0|
@@ -33,13 +35,13 @@
 
 ## Thesis
 
-Term-premium expansion and inflation in the 10-year sector. 
+Term-premium expansion and inflation in the 10-year sector.
 
 **Thesis outcome: UNTESTED.**
 
 The position was closed by an 18/32 move — \~8.7 bp
 
-The macro view was never given the opportunity to be right or wrong. 
+The macro view was never given the opportunity to be right or wrong.
 
 \---
 
