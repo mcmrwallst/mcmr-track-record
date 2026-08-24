@@ -82,6 +82,8 @@ unusual configuration this position is really expressing. The HY note from earli
 that: spreads at \~275bp leave far more room to widen than to compress, and HY widening has usually
 run with a firmer dollar.
 
+full thesis still stands, including the inflation leg, which remains a second engine.
+
 Two things logged before the fact rather than after. The fiscal consolidation announcement is a
 larger threat to this position than the buyback ever was, because it attacks the reason for the
 price rather than the price itself. And the falsification level above stands as written, so it
