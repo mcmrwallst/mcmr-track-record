@@ -6,7 +6,7 @@
 **Direction:** Short
 **Entry timestamp:** 2026-09-02 19:58:07 UTC
 **Entry post:** @mcmrwallst, 2026-09-02
-**Concurrent position:** ZB short, open since 2026-08-05 (see `2026-08-05\\\_ZB\\\_short\\\_ceiling\\\_test\\\_continued\\\_entry.md`)
+**Concurrent position:** ZB short, open since 2026-08-05 (see `2026-08-05\\\\\\\_ZB\\\\\\\_short\\\\\\\_ceiling\\\\\\\_test\\\\\\\_continued\\\\\\\_entry.md`)
 
 \---
 
@@ -20,8 +20,6 @@
 |Risk|1.99% of equity (1R)|
 |Notional exposure|\~198% of equity|
 |Index exposure|\~1.98% of equity per 1% move in the index|
-
-Stop distance set at 1.25x ATR(14) daily, 61.83 index points at entry.
 
 \---
 
