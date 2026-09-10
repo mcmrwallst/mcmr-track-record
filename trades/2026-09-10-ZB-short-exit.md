@@ -5,7 +5,7 @@
 **Instrument:** ZB — CBOT 30-Year U.S. Treasury Bond futures (Dec-26)
 **Direction:** Short
 **Entry post:** @mcmrwallst, 2026-08-05
-**Prior expression:** ZN short, 2026-07-22 → 2026-08-04, closed −1.00R (`2026-07-22\\\_ZN\\\_short.md`)
+**Prior expression:** ZN short, 2026-07-22 → 2026-08-04, closed −1.00R (`2026-07-22\\\\\\\_ZN\\\\\\\_short.md`)
 
 \---
 
@@ -34,11 +34,11 @@ Sub-thesis: the yield ceiling breaks.
 |Field|Value|
 |-|-|
 |Exit date|2026-09-10|
-|Exit|`<fill>` (indicated ask at decision: 107'07'0 / 107.21875)|
+|Exit|107'07'0 / 107.21875|
 |Move captured|2'31'0 = 2.96875 pts ≈ 20 bp on the CTD|
-|Result|**+4.75R = +9.60% of equity** `<confirm against actual fill>`|
+|Result|**+4.75R = +9.60% of equity** |
 |Holding period|36 days|
-|Exit type|`<discretionary, thesis intact / thesis invalidated / event-risk reduction>`|
+|Exit type|discretionary|
 |Stop at exit|110'26'0 — unchanged from entry|
 
 **Cumulative on the thesis:** −1.00R (ZN) + 4.75R (ZB) = **+3.75R**
@@ -59,9 +59,7 @@ The move was concentrated in the long end, which is the signature of the thesis 
 |10Y|\~4.865%|Highest since 2023|
 |2Y|\~4.5%|Breached top of its two-year range|
 
-Drivers cited by the market over the holding period: rising government debt and duration supply; Brent approaching $100 on Strait of Hormuz transit risk; and the Treasury's $6bn quarterly buyback programme landing below expectations (MUFG estimating \~$200bn annualised, insufficient to cap the long end).
-
-**Noted for the full review:** the final session (2026-09-10) was driven by August PPI at +0.4% m/m / 5.4% y/y, which moved September hike odds from \~54% to \~63%. That component is rate-path, not term premium. Term premium did the structural work across the five weeks; the rate path added the last session.
+Drivers cited by the market over the holding period: rising government debt and duration supply; Brent at $105 on Strait of Hormuz transit risk; and the Treasury's $6bn quarterly buyback programme landing below expectations (MUFG estimating \~$200bn annualised, insufficient to cap the long end).
 
 \---
 
@@ -71,11 +69,7 @@ A full conclusion — attribution, curve analysis, stop-management review, and t
 
 \---
 
-*Posted after the position was closed.* 
+*Posted after the position was closed.*
 
 ***Drafted from the author's own notes and analysis; AI assistance used for wording, structure and verification of figures.***
-
-
-
-
 
