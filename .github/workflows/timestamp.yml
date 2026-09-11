@@ -74,12 +74,18 @@ jobs:
           ots stamp "${{ steps.receipt.outputs.path }}"
           ls -la receipts/
 
+      - name: Refresh X anchors
+        run: python scripts/extract_x_anchors.py || echo "no anchors to extract"
+
+      - name: Rebuild VERIFICATION.md from the evidence
+        run: python scripts/build_verification.py
+
       - name: Commit proofs back to the ledger
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add receipts/
+          git add receipts/ VERIFICATION.md
           if git diff --cached --quiet; then
             echo "Nothing to commit."
             exit 0

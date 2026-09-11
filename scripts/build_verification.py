@@ -58,12 +58,24 @@ def load_receipts():
 
 
 def commits():
-    out = git(["log", "--pretty=format:%H%x1f%cI%x1f%s"])
+    """
+    Ledger commits, excluding the automation's own bookkeeping.
+
+    The timestamping workflow commits proofs back to the repository. Those are
+    infrastructure, not entries, and listing them in the coverage table only
+    buries the real ones — the newest is always unattested by construction,
+    since nothing has been pushed after it yet.
+    """
+    out = git(["log", "--pretty=format:%H%x1f%cI%x1f%s%x1f%an"])
     rows = {}
     for line in out.splitlines():
         if not line.strip():
             continue
-        sha, iso, subject = line.split("\x1f", 2)
+        sha, iso, subject, author = line.split("\x1f", 3)
+        if author == "github-actions[bot]" or subject.startswith("Timestamp proof for"):
+            continue
+        if subject.startswith("Upgrade OpenTimestamps proofs"):
+            continue
         rows[sha] = {
             "when": datetime.fromisoformat(iso).astimezone(timezone.utc),
             "subject": subject,
