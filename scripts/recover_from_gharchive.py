@@ -35,6 +35,7 @@ No third-party packages required.
 """
 
 import argparse
+import glob
 import gzip
 import io
 import json
@@ -48,7 +49,44 @@ from datetime import datetime, timedelta, timezone
 DEFAULT_REPO = "mcmrwallst/mcmr-track-record"
 EXISTING = os.path.join("receipts", "push_receipts_backfill.json")
 OUT_PATH = os.path.join("receipts", "push_receipts_gharchive.json")
+SEARCH_LOG = os.path.join("receipts", "gharchive_search_log.json")
 BASE = "https://data.gharchive.org"
+
+
+def hour_key(h: datetime) -> str:
+    """The GH Archive file name for an hour, used as a cache key."""
+    return f"{h.year:04d}-{h.month:02d}-{h.day:02d}-{h.hour}"
+
+
+def load_search_log():
+    """Hours already downloaded on a previous run — never fetch them twice."""
+    try:
+        doc = json.load(open(SEARCH_LOG, encoding="utf-8"))
+        return set(doc.get("hours_searched", []))
+    except (json.JSONDecodeError, OSError):
+        return set()
+
+
+def save_search_log(scanned):
+    """
+    Persist the searched-hours list.
+
+    This is also a record of diligence: it shows which archive hours were
+    examined and came back empty, which is itself evidence about when pushes
+    did and did not happen.
+    """
+    os.makedirs(os.path.dirname(SEARCH_LOG) or ".", exist_ok=True)
+    with open(SEARCH_LOG, "w", encoding="utf-8") as fh:
+        json.dump({
+            "_what_this_is": (
+                "GH Archive hourly files that have been downloaded and searched "
+                "for pushes to this repository. An hour listed here was examined; "
+                "if no receipt in /receipts corresponds to it, no push to this "
+                "repository occurred during that hour."
+            ),
+            "hours_searched": sorted(scanned),
+        }, fh, indent=2)
+        fh.write("\n")
 
 
 def run_git(args):
@@ -94,6 +132,19 @@ def already_covered():
     return covered
 
 
+def rev_range_local(before, head):
+    """Commits delivered by a push, i.e. everything in before..head."""
+    if not head:
+        return []
+    spec = head if (not before or before == "0" * 40) else f"{before}..{head}"
+    try:
+        out = subprocess.run(["git", "rev-list", spec],
+                             capture_output=True, text=True, check=True).stdout
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return []
+    return [l.strip() for l in out.splitlines() if l.strip()]
+
+
 def ancestors_of(sha):
     """Every commit reachable from `sha`, inclusive."""
     try:
@@ -135,10 +186,29 @@ def hours_to_search(missing, window):
     return sorted(hours)
 
 
-def forward_hours(start: datetime, max_hours: int):
-    """Consecutive hourly slots starting at `start`'s hour."""
+def forward_hours(start: datetime, max_hours: int, after_hour=None):
+    """
+    Hourly slots to search, in priority order.
+
+    Always checks the commit's own hour first — a push usually follows its
+    commit within seconds, so that single file is the highest-value test there
+    is. If `after_hour` is given (a UTC hour), the rest of the search resumes
+    from there instead of crawling through the hours in between: useful when
+    you know you would not have been posting before a given time of day.
+    """
     base = start.replace(minute=0, second=0, microsecond=0)
-    return [base + timedelta(hours=i) for i in range(max_hours)]
+    if after_hour is None:
+        return [base + timedelta(hours=i) for i in range(max_hours)]
+
+    hours = [base]
+    resume = base.replace(hour=after_hour)
+    if resume <= base:
+        resume = base + timedelta(hours=1)
+    for i in range(max_hours - 1):
+        h = resume + timedelta(hours=i)
+        if h not in hours:
+            hours.append(h)
+    return hours
 
 
 def scan_hour(hour: datetime, repo: str):
@@ -193,11 +263,44 @@ def main():
     ap.add_argument("--max-hours", type=int, default=36,
                     help="how many hours to search forward from a commit before "
                          "giving up on tightening it (default 36)")
+    ap.add_argument("--tighten", type=float, metavar="HOURS",
+                    help="also hunt for tighter receipts for commits whose current "
+                         "bound is looser than HOURS. Without this, a commit counts "
+                         "as done the moment ANY later receipt covers it through the "
+                         "hash chain — even if that bound is weeks away. Use "
+                         "--tighten 1 to go after every commit not pinned to within "
+                         "an hour.")
+    ap.add_argument("--only", metavar="SHAS",
+                    help="comma-separated commit SHAs (short form fine) to search "
+                         "for, ignoring everything else. Use when you already know "
+                         "which commits are worth chasing.")
+    ap.add_argument("--after", type=int, metavar="UTC_HOUR",
+                    help="after checking a commit's own hour, resume the search "
+                         "from this UTC hour rather than the hours in between. "
+                         "e.g. --after 13 for the US cash open (13:30 UTC).")
     ap.add_argument("--out", default=OUT_PATH)
     args = ap.parse_args()
 
+    if args.after is not None and not 0 <= args.after <= 23:
+        sys.exit("--after must be a UTC hour between 0 and 23.")
+
     commits = local_commits()
     covered = already_covered()
+
+    if args.only:
+        wanted = [s.strip().lower() for s in args.only.split(",") if s.strip()]
+        chosen = set()
+        for prefix in wanted:
+            hits = [s for s in commits if s.lower().startswith(prefix)]
+            if not hits:
+                sys.exit(f"No commit in this repository starts with '{prefix}'.")
+            if len(hits) > 1:
+                sys.exit(f"'{prefix}' is ambiguous — matches {len(hits)} commits.")
+            chosen.add(hits[0])
+        # Everything not explicitly asked for is treated as settled.
+        covered |= {s for s in commits if s not in chosen}
+        print(f"--only: searching for {len(chosen)} commit(s), ignoring the rest.\n")
+
     missing = {sha: m for sha, m in commits.items() if sha not in covered}
 
     print(f"Local commits:            {len(commits)}")
@@ -209,7 +312,10 @@ def main():
         return
 
     events = {}
-    scanned = set()
+    scanned = load_search_log()
+    if scanned:
+        print(f"{len(scanned)} archive hours already searched on previous runs — "
+              f"these will be skipped.")
 
     # Load anything a previous run already recovered, so re-runs build on it.
     if os.path.exists(args.out):
@@ -220,10 +326,83 @@ def main():
         except (json.JSONDecodeError, OSError):
             pass
 
+    def receipt_pairs():
+        """(head, when) for every receipt we currently hold, from any source."""
+        pairs = []
+        for e in events.values():
+            if e.get("head") and e.get("received_by_github_utc"):
+                pairs.append((e["head"], e["received_by_github_utc"]))
+        for path in sorted(glob.glob(os.path.join("receipts", "*.json"))):
+            try:
+                doc = json.load(open(path, encoding="utf-8"))
+            except (json.JSONDecodeError, OSError):
+                continue
+            for ev in doc.get("push_events", []) or []:
+                if ev.get("head") and ev.get("received_by_github_utc"):
+                    pairs.append((ev["head"], ev["received_by_github_utc"]))
+            if doc.get("commit") and doc.get("received_by_github_utc"):
+                pairs.append((doc["commit"], doc["received_by_github_utc"]))
+        return pairs
+
+    def current_bounds():
+        """Tightest attestation time per commit, via the hash chain."""
+        best = {}
+        for head, when in receipt_pairs():
+            try:
+                when_dt = datetime.fromisoformat(when.replace("Z", "+00:00"))
+            except (ValueError, AttributeError):
+                continue
+            for sha in ancestors_of(head):
+                if sha not in best or when_dt < best[sha]:
+                    best[sha] = when_dt
+        return best
+
+    def delivered_commits():
+        """
+        Commits whose OWN arriving push we already hold.
+
+        If a receipt's before..head range contains a commit, that receipt records
+        the moment the commit actually reached GitHub. No earlier receipt can
+        exist for it, so searching forward can only turn up later pushes —
+        strictly worse. These are done, however large their gap looks.
+        """
+        done = set()
+        for e in events.values():
+            done.update(rev_range_local(e.get("before"), e.get("head")))
+        for path in sorted(glob.glob(os.path.join("receipts", "*.json"))):
+            try:
+                doc = json.load(open(path, encoding="utf-8"))
+            except (json.JSONDecodeError, OSError):
+                continue
+            for ev in doc.get("push_events", []) or []:
+                done.update(rev_range_local(ev.get("before"), ev.get("head")))
+            if doc.get("commit"):
+                done.add(doc["commit"])
+        return done
+
     def still_missing():
-        heads = {e.get("head") for e in events.values()} | covered
-        done = attested_by(heads) | covered
-        return {s: m for s, m in commits.items() if s not in done}
+        """
+        Commits still worth searching for.
+
+        Default: commits with no receipt at all. With --tighten HOURS, also
+        commits whose bound is looser than HOURS *and* whose own arriving push
+        we do not already hold — those are the only ones where a better receipt
+        can still exist.
+        """
+        best = current_bounds()
+        delivered = delivered_commits()
+        out = {}
+        for sha, meta in commits.items():
+            if sha in covered:
+                continue
+            bound = best.get(sha)
+            if bound is None:
+                out[sha] = meta
+            elif args.tighten is not None and sha not in delivered:
+                gap_h = (bound - meta["when"]).total_seconds() / 3600.0
+                if gap_h > args.tighten:
+                    out[sha] = meta
+        return out
 
     print(f"\nSearching forward from each unattested commit, oldest first.")
     print("The first push found after a commit attests it AND every commit")
@@ -242,21 +421,43 @@ def main():
             print(f"\n--- searching for: {sha[:8]}  {meta['when'].isoformat()}"
                   f"  {meta['subject'][:44]}")
 
+            before_bound = current_bounds().get(sha)
+            if before_bound is not None:
+                gap_d = (before_bound - meta["when"]).total_seconds() / 86400.0
+                print(f"    current bound: {before_bound.strftime('%Y-%m-%d %H:%M:%SZ')}"
+                      f"  ({gap_d:.1f}d away) — looking for something tighter")
+
             hit = False
-            for hour in forward_hours(meta["when"], args.max_hours):
-                if hour in scanned:
+            for hour in forward_hours(meta["when"], args.max_hours, args.after):
+                if hour_key(hour) in scanned:
+                    print(f"    {hour.strftime('%Y-%m-%d %H:00 UTC')}  (already searched)")
                     continue
                 if hour > datetime.now(timezone.utc):
                     break
-                scanned.add(hour)
                 print(f"    {hour.strftime('%Y-%m-%d %H:00 UTC')}", flush=True)
-                for ev in scan_hour(hour, args.repo):
+                found = scan_hour(hour, args.repo)
+                scanned.add(hour_key(hour))
+                save_search_log(scanned)      # survive Ctrl+C
+                for ev in found:
                     events[ev["event_id"]] = ev
                     print(f"      FOUND push {ev['head'][:8]} at "
                           f"{ev['received_by_github_utc']}")
                     hit = True
                 if hit:
                     break
+
+            if hit:
+                after = current_bounds().get(sha)
+                if after is not None and (before_bound is None or after < before_bound):
+                    gap_s = (after - meta["when"]).total_seconds()
+                    unit = (f"{int(gap_s)}s" if gap_s < 120 else
+                            f"{int(gap_s // 60)}m" if gap_s < 7200 else
+                            f"{gap_s / 3600:.1f}h")
+                    print(f"    TIGHTENED to {after.strftime('%Y-%m-%d %H:%M:%SZ')}"
+                          f"  ({unit} after the commit)")
+                else:
+                    print("    found a push, but it was not tighter than what we had")
+                    covered.add(sha)
 
             if not hit:
                 print(f"    no push found within {args.max_hours}h of {sha[:8]};"

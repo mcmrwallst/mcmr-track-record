@@ -193,6 +193,48 @@ def main():
         w("repository will attest them and everything before them.")
         w("")
 
+    # External anchors from X post IDs, if extract_x_anchors.py has been run.
+    anchors_path = os.path.join("receipts", "x_post_anchors.json")
+    if os.path.exists(anchors_path):
+        try:
+            adoc = json.load(open(anchors_path, encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            adoc = None
+        if adoc and adoc.get("anchors"):
+            w("## External anchors (X)")
+            w("")
+            w("X post IDs encode their own creation time, assigned by X's servers and")
+            w("not settable by the account holder. A commit that cites a post cannot")
+            w("have existed before that post did — so these fix hard **lower** bounds,")
+            w("from a source with no connection to GitHub or to this repository.")
+            w("")
+            w("| Post | Published (UTC) | Cited by | Commit claims | Offset |")
+            w("|---|---|---|---|---|")
+            for a in adoc["anchors"]:
+                cited = a.get("referenced_by_commit")
+                if cited:
+                    gap = a.get("commit_claims_to_be_after_post_by_seconds", 0)
+                    off = (f"{gap}s" if abs(gap) < 120 else
+                           f"{gap // 60}m" if abs(gap) < 7200 else
+                           f"{gap / 3600:.1f}h")
+                    if not a.get("consistent", True):
+                        off += " **IMPOSSIBLE**"
+                    w(f"| [`{a['post_id']}`]({a['url']}) | {a['published_utc']} "
+                      f"| `{cited[:8]}` | {a.get('commit_date_client','—')} | {off} |")
+                else:
+                    w(f"| [`{a['post_id']}`]({a['url']}) | {a['published_utc']} "
+                      f"| — | — | — |")
+            w("")
+            w("**Verify these yourself without an X account:** take the post id and")
+            w("compute `(id >> 22) + 1288834974657`. The result is milliseconds since")
+            w("the Unix epoch. It works even if the post or the account is gone,")
+            w("because the time is inside the identifier rather than on the page.")
+            w("")
+            w("These bound a commit from below, not above. They establish that an entry")
+            w("could not have been written earlier than stated; the push receipts above")
+            w("are what bound it from the other side.")
+            w("")
+
     w("## What this repository proves")
     w("")
     w("**Sequence and content, cryptographically.** Every commit hash covers its")

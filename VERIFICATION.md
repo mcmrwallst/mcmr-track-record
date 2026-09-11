@@ -5,7 +5,7 @@ prove, and how to check both without taking my word for anything. It is
 generated from the receipt files in `/receipts`, not written by hand, so it
 cannot drift out of line with the evidence.
 
-*Generated 2026-09-11 18:34 UTC — 17 of 18 commits attested.*
+*Generated 2026-09-11 22:11 UTC — 19 of 20 commits attested.*
 
 ---
 
@@ -66,11 +66,34 @@ equally strong, and the table does not pretend otherwise.
 | `3d725155` Create 2026-09-10_SPX_short_vol_asymmetry_e... | 2026-09-10 20:12:19Z | 2026-09-10 20:12:23Z | 4s | GitHub events API |
 | `a389355e` Update 2026-09-10-ZB-short-exit.md | 2026-09-10 21:09:50Z | 2026-09-11 18:23:26Z | 21h | GitHub Actions receipt |
 | `c045a204` System updates | 2026-09-11 18:22:53Z | 2026-09-11 18:23:26Z | 33s | GitHub Actions receipt |
-| `59279207` Timestamp proof for c045a2047e5de2369a94d90... | 2026-09-11 18:23:28Z | — | — | — |
+| `59279207` Timestamp proof for c045a2047e5de2369a94d90... | 2026-09-11 18:23:28Z | 2026-09-11 18:36:07Z | 12m | GitHub Actions receipt |
+| `f0fc7bf0` Update VERIFICATION.md | 2026-09-11 18:35:48Z | 2026-09-11 18:36:07Z | 19s | GitHub Actions receipt |
+| `26200e5a` Timestamp proof for f0fc7bf00d29c46d97852e4... | 2026-09-11 18:36:09Z | — | — | — |
 
 **1 commit(s) not yet attested.** These are the most recent
 entries, whose push events have not yet been captured. The next push to this
 repository will attest them and everything before them.
+
+## External anchors (X)
+
+X post IDs encode their own creation time, assigned by X's servers and
+not settable by the account holder. A commit that cites a post cannot
+have existed before that post did — so these fix hard **lower** bounds,
+from a source with no connection to GitHub or to this repository.
+
+| Post | Published (UTC) | Cited by | Commit claims | Offset |
+|---|---|---|---|---|
+| [`2080008904050876658`](https://x.com/mcmrwallst/status/2080008904050876658) | 2026-07-22T19:15:42Z | `2e408074` | 2026-07-22T19:33:45Z | 18m |
+| [`2080171221656691106`](https://x.com/mcmrwallst/status/2080171221656691106) | 2026-07-23T06:00:41Z | `3db5d21d` | 2026-07-23T06:06:31Z | 5m |
+
+**Verify these yourself without an X account:** take the post id and
+compute `(id >> 22) + 1288834974657`. The result is milliseconds since
+the Unix epoch. It works even if the post or the account is gone,
+because the time is inside the identifier rather than on the page.
+
+These bound a commit from below, not above. They establish that an entry
+could not have been written earlier than stated; the push receipts above
+are what bound it from the other side.
 
 ## What this repository proves
 
