@@ -83,7 +83,6 @@ from a source with no connection to GitHub or to this repository.
 
 | Post | Published (UTC) | Cited by | Commit claims | Offset |
 |---|---|---|---|---|
-| [`2080008904050876658`](https://x.com/mcmrwallst/status/2080008904050876658) | 2026-07-22T19:15:42Z | `2e408074` | 2026-07-22T19:33:45Z | 18m |
 | [`2080171221656691106`](https://x.com/mcmrwallst/status/2080171221656691106) | 2026-07-23T06:00:41Z | `3db5d21d` | 2026-07-23T06:06:31Z | 5m |
 
 **Verify these yourself without an X account:** take the post id and
