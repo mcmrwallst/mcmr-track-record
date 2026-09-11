@@ -1,0 +1,26 @@
+{
+  "_what_this_is": "Push receipts for this repository recovered from GH Archive, a permanent third-party mirror of GitHub's public event stream. These cover commits whose events GitHub's own API no longer serves. 'received_by_github_utc' is GitHub's server-side arrival time as recorded at the time of the push; it is not settable by the repository owner, and these records are held by a third party.",
+  "_how_to_verify": "Each entry names the exact GH Archive file it came from in 'source_file'. Download that file independently and search it for the event_id below. Nothing in this repository has to be trusted.",
+  "repository": "mcmrwallst/mcmr-track-record",
+  "captured_at_utc": "2026-09-11T15:33:59Z",
+  "push_event_count": 1,
+  "push_events": [
+    {
+      "event_id": "15573529828",
+      "received_by_github_utc": "2026-07-22T19:33:49Z",
+      "actor": "mcmrwallst",
+      "ref": "refs/heads/main",
+      "before": "7abda40a6e63a07e65489b1d4e8421d4fb8cf013",
+      "head": "2e408074fa3a65732dd42fe28543006012e6039a",
+      "source": "gharchive",
+      "source_file": "https://data.gharchive.org/2026-07-22-19.json.gz",
+      "commits_covered": [
+        {
+          "sha": "2e408074fa3a65732dd42fe28543006012e6039a",
+          "commit_date_client": "2026-07-22T19:33:45+00:00",
+          "subject": "Create 2026-07-22_ZN_short_ceiling_test.md"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+name: Timestamp commits
+
+# Runs on every push to main. Two jobs of work:
+#
+#   1. Writes a receipt recording when GitHub received the push, on GitHub's
+#      clock, not the author's laptop clock.
+#   2. Creates an OpenTimestamps proof of the commit SHA, anchored to the
+#      Bitcoin blockchain. Because a commit SHA is a hash of the entire
+#      repository state at that commit, proving the SHA existed at time T
+#      proves every trade file in the repo existed, unmodified, at time T.
+#
+# Neither depends on trusting the repository owner. The second does not even
+# depend on trusting GitHub.
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: timestamp-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  stamp:
+    # Skip the bot's own proof commits, otherwise this loops forever.
+    if: "!contains(github.event.head_commit.message, '[skip-timestamp]')"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install OpenTimestamps client
+        run: pip install --quiet opentimestamps-client
+
+      - name: Write push receipt
+        id: receipt
+        run: |
+          set -euo pipefail
+          mkdir -p receipts
+          SHA="${{ github.sha }}"
+          TREE="$(git rev-parse "${SHA}^{tree}")"
+          RECEIVED="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+
+          cat > "receipts/${SHA}.json" <<JSON
+          {
+            "_what_this_is": "Server-side evidence that commit ${SHA} reached GitHub at the time below. 'received_by_github_utc' is the clock of a GitHub-hosted runner and is not settable by the repository owner. 'commit_date_client' is written by the author's own machine and IS settable; it is recorded only for comparison.",
+            "commit": "${SHA}",
+            "tree": "${TREE}",
+            "ref": "${{ github.ref }}",
+            "pushed_by": "${{ github.actor }}",
+            "commit_date_client": "${{ github.event.head_commit.timestamp }}",
+            "received_by_github_utc": "${RECEIVED}",
+            "workflow_run_url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          }
+          JSON
+
+          echo "path=receipts/${SHA}.json" >> "$GITHUB_OUTPUT"
+          cat "receipts/${SHA}.json"
+
+      - name: Create OpenTimestamps proof
+        run: |
+          set -euo pipefail
+          ots stamp "${{ steps.receipt.outputs.path }}"
+          ls -la receipts/
+
+      - name: Commit proofs back to the ledger
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add receipts/
+          if git diff --cached --quiet; then
+            echo "Nothing to commit."
+            exit 0
+          fi
+          git commit -m "Timestamp proof for ${{ github.sha }} [skip-timestamp]"
+          # Rebase in case a human pushed while this was running.
+          for attempt in 1 2 3; do
+            if git pull --rebase --autostash origin "${GITHUB_REF#refs/heads/}" && git push; then
+              echo "Pushed on attempt ${attempt}."
+              exit 0
+            fi
+            echo "Push attempt ${attempt} failed; retrying."
+            sleep 5
+          done
+          echo "Could not push proofs after 3 attempts." >&2
+          exit 1

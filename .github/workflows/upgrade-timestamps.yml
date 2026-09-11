@@ -1,0 +1,73 @@
+name: Upgrade timestamp proofs
+
+# An OpenTimestamps proof is created instantly but is only "pending" until the
+# calendar servers commit it into a Bitcoin block — usually a few hours, at most
+# a day or so. Until upgraded, a proof still verifies, but it relies on the
+# calendar server. Once upgraded it is anchored in the blockchain and depends on
+# nobody at all.
+#
+# This job sweeps every pending proof weekly and commits the upgraded versions.
+
+on:
+  schedule:
+    - cron: '0 3 * * 0'      # Sundays, 03:00 UTC
+  workflow_dispatch:          # and on demand from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  upgrade:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install OpenTimestamps client
+        run: pip install --quiet opentimestamps-client
+
+      - name: Upgrade pending proofs
+        run: |
+          set -uo pipefail
+          shopt -s nullglob
+          found=0
+          for proof in receipts/*.ots; do
+            found=1
+            echo "--- $proof"
+            ots upgrade "$proof" || echo "    still pending, will retry next run"
+          done
+          if [ "$found" -eq 0 ]; then
+            echo "No proofs found yet."
+          fi
+          # ots writes a .bak beside each upgraded proof; we don't need them.
+          rm -f receipts/*.ots.bak
+
+      - name: Verify proofs still check out
+        run: |
+          set -uo pipefail
+          shopt -s nullglob
+          for proof in receipts/*.ots; do
+            target="${proof%.ots}"
+            [ -f "$target" ] || continue
+            echo "--- verifying $target"
+            ots verify "$proof" || echo "    not yet confirmed"
+          done
+
+      - name: Commit upgraded proofs
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add receipts/
+          if git diff --cached --quiet; then
+            echo "No proofs were upgraded this run."
+            exit 0
+          fi
+          git commit -m "Upgrade OpenTimestamps proofs to Bitcoin attestations [skip-timestamp]"
+          git pull --rebase --autostash origin main && git push

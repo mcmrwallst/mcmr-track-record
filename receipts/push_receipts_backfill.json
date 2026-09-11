@@ -1,0 +1,141 @@
+{
+  "_what_this_is": "GitHub's own server-side record of when each commit was PUSHED to github.com. 'received_by_github_utc' is set by GitHub and cannot be set by the repository owner. 'commit_date_client' is the date written inside the commit object by the author's machine and CAN be set arbitrarily; it is included only so the two can be compared.",
+  "_independently_verifiable_at": "https://www.gharchive.org/ \u2014 a permanent third-party mirror of GitHub's public event stream. Any event below can be located there by its event_id and timestamp, with no reliance on this repository or on the account owner.",
+  "_coverage_note": "GitHub's public event feeds retain roughly 90 days and are capped at 300 events. Commits older than the earliest receipt below are not covered by this file; their push times remain recoverable from the GH Archive mirror but are not attested here.",
+  "repository": "mcmrwallst/mcmr-track-record",
+  "captured_at_utc": "2026-09-11T15:20:56Z",
+  "push_event_count": 8,
+  "commits_matched_to_local_history": 8,
+  "local_commits_not_covered": [
+    "a389355e96a14115e4176c2ccaa0c1d64ab40007",
+    "31bfe91f0b4413d345fd8b8db51f969a8baa0c8c",
+    "5f6ca920b8c733faf9da7736246b60ad24fe8f15",
+    "cbf4ebc240ad5f880b50407da09442f5ee926685",
+    "3db5d21dcc90579049b92d114f2dba9fd724be6b",
+    "2e408074fa3a65732dd42fe28543006012e6039a",
+    "7abda40a6e63a07e65489b1d4e8421d4fb8cf013",
+    "cde71dbc154b27b94f43f9381448286e42c6a009"
+  ],
+  "push_events": [
+    {
+      "event_id": "18764673215",
+      "received_by_github_utc": "2026-08-24T22:03:38Z",
+      "actor": "mcmrwallst",
+      "ref": "refs/heads/main",
+      "before": "31bfe91f0b4413d345fd8b8db51f969a8baa0c8c",
+      "head": "ab8d507fe9a03fe0e504060911534f1eacf4a55a",
+      "commits_covered": [
+        {
+          "sha": "ab8d507fe9a03fe0e504060911534f1eacf4a55a",
+          "commit_date_client": "2026-08-24T23:03:33+01:00",
+          "subject": "This is a Update on ZB position"
+        }
+      ]
+    },
+    {
+      "event_id": "18782347176",
+      "received_by_github_utc": "2026-08-24T23:03:21Z",
+      "actor": "mcmrwallst",
+      "ref": "refs/heads/main",
+      "before": "ab8d507fe9a03fe0e504060911534f1eacf4a55a",
+      "head": "d1e2a1b0697cea738024d88f50e5359d5c9ec966",
+      "commits_covered": [
+        {
+          "sha": "d1e2a1b0697cea738024d88f50e5359d5c9ec966",
+          "commit_date_client": "2026-08-25T00:03:15+01:00",
+          "subject": "Update 2026-08-24_ZB_short_ceiling_test_update.md"
+        }
+      ]
+    },
+    {
+      "event_id": "19971111375",
+      "received_by_github_utc": "2026-09-02T21:44:05Z",
+      "actor": "mcmrwallst",
+      "ref": "refs/heads/main",
+      "before": "d1e2a1b0697cea738024d88f50e5359d5c9ec966",
+      "head": "a4050cf4ae475044d41f442c659916d681f299b2",
+      "commits_covered": [
+        {
+          "sha": "a4050cf4ae475044d41f442c659916d681f299b2",
+          "commit_date_client": "2026-09-02T22:44:01+01:00",
+          "subject": "Create 2026-09-02_SPX_short_vol_asymmetry_open.md"
+        }
+      ]
+    },
+    {
+      "event_id": "19858450691",
+      "received_by_github_utc": "2026-09-02T21:49:23Z",
+      "actor": "mcmrwallst",
+      "ref": "refs/heads/main",
+      "before": "a4050cf4ae475044d41f442c659916d681f299b2",
+      "head": "5413626b72d7fb9ec4bb996d5221ab0235bc36d2",
+      "commits_covered": [
+        {
+          "sha": "5413626b72d7fb9ec4bb996d5221ab0235bc36d2",
+          "commit_date_client": "2026-09-02T22:49:19+01:00",
+          "subject": "Update 2026-09-02_SPX_short_vol_asymmetry_open.md"
+        }
+      ]
+    },
+    {
+      "event_id": "19987731987",
+      "received_by_github_utc": "2026-09-03T20:14:14Z",
+      "actor": "mcmrwallst",
+      "ref": "refs/heads/main",
+      "before": "5413626b72d7fb9ec4bb996d5221ab0235bc36d2",
+      "head": "6d5b964d45d13f88c459aedd2e6349aac0011e3d",
+      "commits_covered": [
+        {
+          "sha": "6d5b964d45d13f88c459aedd2e6349aac0011e3d",
+          "commit_date_client": "2026-09-03T21:14:09+01:00",
+          "subject": "Create 2026-09-03_SPX_short_vol_asymmetry_exit.md"
+        }
+      ]
+    },
+    {
+      "event_id": "20168075767",
+      "received_by_github_utc": "2026-09-03T20:41:01Z",
+      "actor": "mcmrwallst",
+      "ref": "refs/heads/main",
+      "before": "6d5b964d45d13f88c459aedd2e6349aac0011e3d",
+      "head": "ce3ebf35a9f9f24519944f3cbc0d0efa71827f4f",
+      "commits_covered": [
+        {
+          "sha": "ce3ebf35a9f9f24519944f3cbc0d0efa71827f4f",
+          "commit_date_client": "2026-09-03T21:40:55+01:00",
+          "subject": "Create 2026-09-03_SPX_short_vol_asymmetry_reentry_open_2.md"
+        }
+      ]
+    },
+    {
+      "event_id": "20705784921",
+      "received_by_github_utc": "2026-09-10T16:37:26Z",
+      "actor": "mcmrwallst",
+      "ref": "refs/heads/main",
+      "before": "ce3ebf35a9f9f24519944f3cbc0d0efa71827f4f",
+      "head": "5ea054eb5b25ea93c68551b4163d82cdf82b5259",
+      "commits_covered": [
+        {
+          "sha": "5ea054eb5b25ea93c68551b4163d82cdf82b5259",
+          "commit_date_client": "2026-09-10T17:37:20+01:00",
+          "subject": "Create 2026-09-10-ZB-short-exit.md"
+        }
+      ]
+    },
+    {
+      "event_id": "20758785844",
+      "received_by_github_utc": "2026-09-10T20:12:23Z",
+      "actor": "mcmrwallst",
+      "ref": "refs/heads/main",
+      "before": "5ea054eb5b25ea93c68551b4163d82cdf82b5259",
+      "head": "3d72515533a898054741bbbcc65f29da2828ae27",
+      "commits_covered": [
+        {
+          "sha": "3d72515533a898054741bbbcc65f29da2828ae27",
+          "commit_date_client": "2026-09-10T21:12:19+01:00",
+          "subject": "Create 2026-09-10_SPX_short_vol_asymmetry_exit.md"
+        }
+      ]
+    }
+  ]
+}
