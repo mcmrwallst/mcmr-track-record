@@ -3,7 +3,7 @@
   "_what_this_proves": "A commit that references post P cannot have been created before P existed. Each anchor therefore fixes a hard LOWER BOUND on the referencing commit, from a source unconnected to GitHub or to this repository. Where a commit's claimed date sits only minutes after the post it cites, the two corroborate each other.",
   "_what_this_does_NOT_prove": "It does not establish the post's CONTENT \u2014 only that a post with that identifier was created at that time. It does not prove a commit was made at its claimed time; it rules out the commit being made EARLIER, not later. Upper bounds come from the push receipts in this directory.",
   "_how_to_verify": "Take any post_id below and compute (id >> 22) + 1288834974657. The result is milliseconds since the Unix epoch. This needs no X account, no API access, and works even if the post or account is gone, because the timestamp is inside the identifier itself.",
-  "generated_utc": "2026-09-11T23:36:54Z",
+  "generated_utc": "2026-09-11T23:53:00Z",
   "anchor_count": 2,
   "anchors": [
     {
