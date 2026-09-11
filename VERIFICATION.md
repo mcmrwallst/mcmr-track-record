@@ -5,7 +5,7 @@ prove, and how to check both without taking my word for anything. It is
 generated from the receipt files in `/receipts`, not written by hand, so it
 cannot drift out of line with the evidence.
 
-*Generated 2026-09-11 18:20 UTC — 15 of 16 commits attested.*
+*Generated 2026-09-11 18:34 UTC — 17 of 18 commits attested.*
 
 ---
 
@@ -64,7 +64,9 @@ equally strong, and the table does not pretend otherwise.
 | `ce3ebf35` Create 2026-09-03_SPX_short_vol_asymmetry_r... | 2026-09-03 20:40:55Z | 2026-09-03 20:41:01Z | 6s | GitHub events API |
 | `5ea054eb` Create 2026-09-10-ZB-short-exit.md | 2026-09-10 16:37:20Z | 2026-09-10 16:37:26Z | 6s | GitHub events API |
 | `3d725155` Create 2026-09-10_SPX_short_vol_asymmetry_e... | 2026-09-10 20:12:19Z | 2026-09-10 20:12:23Z | 4s | GitHub events API |
-| `a389355e` Update 2026-09-10-ZB-short-exit.md | 2026-09-10 21:09:50Z | — | — | — |
+| `a389355e` Update 2026-09-10-ZB-short-exit.md | 2026-09-10 21:09:50Z | 2026-09-11 18:23:26Z | 21h | GitHub Actions receipt |
+| `c045a204` System updates | 2026-09-11 18:22:53Z | 2026-09-11 18:23:26Z | 33s | GitHub Actions receipt |
+| `59279207` Timestamp proof for c045a2047e5de2369a94d90... | 2026-09-11 18:23:28Z | — | — | — |
 
 **1 commit(s) not yet attested.** These are the most recent
 entries, whose push events have not yet been captured. The next push to this
