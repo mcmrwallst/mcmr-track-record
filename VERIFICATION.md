@@ -5,7 +5,7 @@ prove, and how to check both without taking my word for anything. It is
 generated from the receipt files in `/receipts`, not written by hand, so it
 cannot drift out of line with the evidence.
 
-*Generated 2026-09-11 23:53 UTC — 21 of 23 commits attested.*
+*Generated 2026-09-11 23:55 UTC — 24 of 24 commits attested.*
 
 ---
 
@@ -70,12 +70,9 @@ equally strong, and the table does not pretend otherwise.
 | `8bbc49bc` This is the updates for the verification of... | 2026-09-11 22:13:49Z | 2026-09-11 22:14:10Z | 21s | GitHub Actions receipt |
 | `521f298e` Update VERIFICATION.md | 2026-09-11 22:31:59Z | 2026-09-11 22:32:08Z | 9s | GitHub Actions receipt |
 | `c185912b` update | 2026-09-11 23:21:02Z | 2026-09-11 23:21:57Z | 55s | GitHub Actions receipt |
-| `42ae2802` updates | 2026-09-11 23:49:52Z | — | — | — |
-| `e2db1aef` Merge branch 'main' of https://github.com/m... | 2026-09-11 23:52:21Z | — | — | — |
-
-**2 commit(s) not yet attested.** These are the most recent
-entries, whose push events have not yet been captured. The next push to this
-repository will attest them and everything before them.
+| `42ae2802` updates | 2026-09-11 23:49:52Z | 2026-09-11 23:55:03Z | 5m | GitHub Actions receipt |
+| `e2db1aef` Merge branch 'main' of https://github.com/m... | 2026-09-11 23:52:21Z | 2026-09-11 23:55:03Z | 2m | GitHub Actions receipt |
+| `24e165b6` Mark unresolvable X anchor | 2026-09-11 23:53:01Z | 2026-09-11 23:55:03Z | 2m | GitHub Actions receipt |
 
 ## External anchors (X)
 
