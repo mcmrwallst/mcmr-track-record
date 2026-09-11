@@ -3,7 +3,7 @@
   "_what_this_proves": "A commit that references post P cannot have been created before P existed. Each anchor therefore fixes a hard LOWER BOUND on the referencing commit, from a source unconnected to GitHub or to this repository. Where a commit's claimed date sits only minutes after the post it cites, the two corroborate each other.",
   "_what_this_does_NOT_prove": "It does not establish the post's CONTENT \u2014 only that a post with that identifier was created at that time. It does not prove a commit was made at its claimed time; it rules out the commit being made EARLIER, not later. Upper bounds come from the push receipts in this directory.",
   "_how_to_verify": "Take any post_id below and compute (id >> 22) + 1288834974657. The result is milliseconds since the Unix epoch. This needs no X account, no API access, and works even if the post or account is gone, because the timestamp is inside the identifier itself.",
-  "generated_utc": "2026-09-11T22:07:56Z",
+  "generated_utc": "2026-09-11T23:36:54Z",
   "anchor_count": 2,
   "anchors": [
     {
@@ -12,6 +12,8 @@
       "url": "https://x.com/mcmrwallst/status/2080008904050876658",
       "published_utc": "2026-07-22T19:15:42Z",
       "derivation": "(2080008904050876658 >> 22) + 1288834974657 = 1784747742079 ms since the Unix epoch",
+      "resolves": false,
+      "evidential_weight": "NONE. This post no longer resolves on X, so nobody can confirm the identifier ever belonged to a real post. The decoded time is still arithmetically correct, but an id that cannot be looked up proves nothing \u2014 any number decodes to some date. Recorded here for completeness, not offered as evidence.",
       "referenced_by_commit": "2e408074fa3a65732dd42fe28543006012e6039a",
       "commit_subject": "Create 2026-07-22_ZN_short_ceiling_test.md",
       "commit_date_client": "2026-07-22T19:33:45Z",
@@ -25,6 +27,7 @@
       "url": "https://x.com/mcmrwallst/status/2080171221656691106",
       "published_utc": "2026-07-23T06:00:41Z",
       "derivation": "(2080171221656691106 >> 22) + 1288834974657 = 1784786441612 ms since the Unix epoch",
+      "resolves": true,
       "referenced_by_commit": "3db5d21dcc90579049b92d114f2dba9fd724be6b",
       "commit_subject": "Update 2026-07-22_ZN_short_ceiling_test.md",
       "commit_date_client": "2026-07-23T06:06:31Z",

@@ -61,9 +61,37 @@ def introducing_commit(post_id: str):
     return None, None, None
 
 
+UNRESOLVABLE_FILE = os.path.join("receipts", "x_unresolvable_posts.txt")
+
+
+def load_unresolvable():
+    """
+    Post IDs that no longer resolve on X.
+
+    These are kept in the record rather than removed — deleting inconvenient
+    evidence is the behaviour this ledger exists to prevent — but they are
+    marked, because an anchor nobody can open is close to worthless. Anyone
+    can invent a number that decodes to a flattering date; what makes a
+    snowflake anchor evidence is that the post can be found.
+
+    One post id per line in receipts/x_unresolvable_posts.txt; blank lines and
+    lines starting with # are ignored.
+    """
+    ids = set()
+    if not os.path.exists(UNRESOLVABLE_FILE):
+        return ids
+    for line in open(UNRESOLVABLE_FILE, encoding="utf-8"):
+        line = line.split("#", 1)[0].strip()
+        if line:
+            ids.add(line)
+    return ids
+
+
 def main():
     if not os.path.isdir(".git"):
         sys.exit("Run this from the repository root.")
+
+    unresolvable = load_unresolvable()
 
     history = git(["log", "-p", "--all"])
     found = {}
@@ -89,6 +117,18 @@ def main():
                 f"{(int(post_id) >> 22) + SNOWFLAKE_EPOCH_MS} ms since the Unix epoch"
             ),
         }
+
+        if post_id in unresolvable:
+            entry["resolves"] = False
+            entry["evidential_weight"] = (
+                "NONE. This post no longer resolves on X, so nobody can confirm "
+                "the identifier ever belonged to a real post. The decoded time is "
+                "still arithmetically correct, but an id that cannot be looked up "
+                "proves nothing — any number decodes to some date. Recorded here "
+                "for completeness, not offered as evidence."
+            )
+        else:
+            entry["resolves"] = True
 
         if sha:
             delta = (cdate - published).total_seconds()

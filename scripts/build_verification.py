@@ -224,6 +224,11 @@ def main():
             w("|---|---|---|---|---|")
             for a in adoc["anchors"]:
                 cited = a.get("referenced_by_commit")
+                if a.get("resolves") is False:
+                    w(f"| `{a['post_id']}` *(dead link)* | {a['published_utc']} "
+                      f"| `{cited[:8]}` | {a.get('commit_date_client','—')} "
+                      f"| **no weight** |")
+                    continue
                 if cited:
                     gap = a.get("commit_claims_to_be_after_post_by_seconds", 0)
                     off = (f"{gap}s" if abs(gap) < 120 else
@@ -246,6 +251,13 @@ def main():
             w("could not have been written earlier than stated; the push receipts above")
             w("are what bound it from the other side.")
             w("")
+            if any(a.get("resolves") is False for a in adoc["anchors"]):
+                w("A row marked *(dead link)* carries **no evidential weight**. The post")
+                w("no longer resolves on X, so nobody can confirm the identifier ever")
+                w("belonged to a real post — and any number decodes to some date. It is")
+                w("listed because it appears in this repository's history and removing it")
+                w("would be concealment, not because it proves anything.")
+                w("")
 
     w("## What this repository proves")
     w("")

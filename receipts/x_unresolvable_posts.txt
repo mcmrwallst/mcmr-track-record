@@ -1,0 +1,3 @@
+# X post ids that no longer resolve. One per line.
+# Kept in the record and marked, never deleted.
+2080008904050876658
