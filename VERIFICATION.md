@@ -5,7 +5,7 @@ prove, and how to check both without taking my word for anything. It is
 generated from the receipt files in `/receipts`, not written by hand, so it
 cannot drift out of line with the evidence.
 
-*Generated 2026-09-15 18:56 UTC — 26 of 26 commits attested.*
+*Generated 2026-09-15 19:08 UTC — 27 of 27 commits attested.*
 
 ---
 
@@ -49,32 +49,33 @@ equally strong, and the table does not pretend otherwise.
 
 | Commit | Claimed (UTC) | Proven to exist by | Gap | Source |
 |---|---|---|---|---|
-| `cde71dbc` Initialize track record ledger: templates, ... | 2026-07-22 08:16:23Z | 2026-07-22 19:33:49Z | 11h | GH Archive |
-| `7abda40a` Update 2026-07-22_ES_UPDATE_EXAMPLE.md | 2026-07-22 09:44:42Z | 2026-07-22 19:33:49Z | 9h | GH Archive |
-| `2e408074` Create 2026-07-22_ZN_short_ceiling_test.md | 2026-07-22 19:33:45Z | 2026-07-22 19:33:49Z | 4s | GH Archive |
-| `3db5d21d` Update 2026-07-22_ZN_short_ceiling_test.md | 2026-07-23 06:06:31Z | 2026-08-24 22:03:38Z | 32d | GitHub events API |
-| `cbf4ebc2` Updates and Correction | 2026-07-27 19:30:08Z | 2026-08-24 22:03:38Z | 28d | GitHub events API |
-| `5f6ca920` Create 2026-07-22_ZN_short _ceiling_test_ex... | 2026-08-05 09:18:03Z | 2026-08-24 22:03:38Z | 19d | GitHub events API |
-| `31bfe91f` ZB short, ceiling test continues | 2026-08-05 10:09:14Z | 2026-08-24 22:03:38Z | 19d | GitHub events API |
-| `ab8d507f` This is a Update on ZB position | 2026-08-24 22:03:33Z | 2026-08-24 22:03:38Z | 5s | GitHub events API |
-| `d1e2a1b0` Update 2026-08-24_ZB_short_ceiling_test_upd... | 2026-08-24 23:03:15Z | 2026-08-24 23:03:21Z | 6s | GitHub events API |
-| `a4050cf4` Create 2026-09-02_SPX_short_vol_asymmetry_o... | 2026-09-02 21:44:01Z | 2026-09-02 21:44:05Z | 4s | GitHub events API |
-| `5413626b` Update 2026-09-02_SPX_short_vol_asymmetry_o... | 2026-09-02 21:49:19Z | 2026-09-02 21:49:23Z | 4s | GitHub events API |
-| `6d5b964d` Create 2026-09-03_SPX_short_vol_asymmetry_e... | 2026-09-03 20:14:09Z | 2026-09-03 20:14:14Z | 5s | GitHub events API |
-| `ce3ebf35` Create 2026-09-03_SPX_short_vol_asymmetry_r... | 2026-09-03 20:40:55Z | 2026-09-03 20:41:01Z | 6s | GitHub events API |
-| `5ea054eb` Create 2026-09-10-ZB-short-exit.md | 2026-09-10 16:37:20Z | 2026-09-10 16:37:26Z | 6s | GitHub events API |
-| `3d725155` Create 2026-09-10_SPX_short_vol_asymmetry_e... | 2026-09-10 20:12:19Z | 2026-09-10 20:12:23Z | 4s | GitHub events API |
-| `a389355e` Update 2026-09-10-ZB-short-exit.md | 2026-09-10 21:09:50Z | 2026-09-11 18:23:26Z | 21h | GitHub Actions receipt |
-| `c045a204` System updates | 2026-09-11 18:22:53Z | 2026-09-11 18:23:26Z | 33s | GitHub Actions receipt |
-| `f0fc7bf0` Update VERIFICATION.md | 2026-09-11 18:35:48Z | 2026-09-11 18:36:07Z | 19s | GitHub Actions receipt |
-| `8bbc49bc` This is the updates for the verification of... | 2026-09-11 22:13:49Z | 2026-09-11 22:14:10Z | 21s | GitHub Actions receipt |
-| `521f298e` Update VERIFICATION.md | 2026-09-11 22:31:59Z | 2026-09-11 22:32:08Z | 9s | GitHub Actions receipt |
-| `c185912b` update | 2026-09-11 23:21:02Z | 2026-09-11 23:21:57Z | 55s | GitHub Actions receipt |
-| `42ae2802` updates | 2026-09-11 23:49:52Z | 2026-09-11 23:55:03Z | 5m | GitHub Actions receipt |
-| `e2db1aef` Merge branch 'main' of https://github.com/m... | 2026-09-11 23:52:21Z | 2026-09-11 23:55:03Z | 2m | GitHub Actions receipt |
-| `24e165b6` Mark unresolvable X anchor | 2026-09-11 23:53:01Z | 2026-09-11 23:55:03Z | 2m | GitHub Actions receipt |
-| `568cd322` Create 2026-09-15_ZB_CONCLUSION.md | 2026-09-15 18:56:00Z | 2026-09-15 18:56:40Z | 40s | GitHub Actions receipt |
-| `afd9c386` Merge branch 'main' of https://github.com/m... | 2026-09-15 18:56:06Z | 2026-09-15 18:56:40Z | 34s | GitHub Actions receipt |
+| `cde71dbc` `Initialize track record ledger: templates, ...` | 2026-07-22 08:16:23Z | 2026-07-22 19:33:49Z | 11h | GH Archive |
+| `7abda40a` `Update 2026-07-22_ES_UPDATE_EXAMPLE.md` | 2026-07-22 09:44:42Z | 2026-07-22 19:33:49Z | 9h | GH Archive |
+| `2e408074` `Create 2026-07-22_ZN_short_ceiling_test.md` | 2026-07-22 19:33:45Z | 2026-07-22 19:33:49Z | 4s | GH Archive |
+| `3db5d21d` `Update 2026-07-22_ZN_short_ceiling_test.md` | 2026-07-23 06:06:31Z | 2026-08-24 22:03:38Z | 32d | GitHub events API |
+| `cbf4ebc2` `Updates and Correction` | 2026-07-27 19:30:08Z | 2026-08-24 22:03:38Z | 28d | GitHub events API |
+| `5f6ca920` `Create 2026-07-22_ZN_short _ceiling_test_ex...` | 2026-08-05 09:18:03Z | 2026-08-24 22:03:38Z | 19d | GitHub events API |
+| `31bfe91f` `ZB short, ceiling test continues` | 2026-08-05 10:09:14Z | 2026-08-24 22:03:38Z | 19d | GitHub events API |
+| `ab8d507f` `This is a Update on ZB position` | 2026-08-24 22:03:33Z | 2026-08-24 22:03:38Z | 5s | GitHub events API |
+| `d1e2a1b0` `Update 2026-08-24_ZB_short_ceiling_test_upd...` | 2026-08-24 23:03:15Z | 2026-08-24 23:03:21Z | 6s | GitHub events API |
+| `a4050cf4` `Create 2026-09-02_SPX_short_vol_asymmetry_o...` | 2026-09-02 21:44:01Z | 2026-09-02 21:44:05Z | 4s | GitHub events API |
+| `5413626b` `Update 2026-09-02_SPX_short_vol_asymmetry_o...` | 2026-09-02 21:49:19Z | 2026-09-02 21:49:23Z | 4s | GitHub events API |
+| `6d5b964d` `Create 2026-09-03_SPX_short_vol_asymmetry_e...` | 2026-09-03 20:14:09Z | 2026-09-03 20:14:14Z | 5s | GitHub events API |
+| `ce3ebf35` `Create 2026-09-03_SPX_short_vol_asymmetry_r...` | 2026-09-03 20:40:55Z | 2026-09-03 20:41:01Z | 6s | GitHub events API |
+| `5ea054eb` `Create 2026-09-10-ZB-short-exit.md` | 2026-09-10 16:37:20Z | 2026-09-10 16:37:26Z | 6s | GitHub events API |
+| `3d725155` `Create 2026-09-10_SPX_short_vol_asymmetry_e...` | 2026-09-10 20:12:19Z | 2026-09-10 20:12:23Z | 4s | GitHub events API |
+| `a389355e` `Update 2026-09-10-ZB-short-exit.md` | 2026-09-10 21:09:50Z | 2026-09-11 18:23:26Z | 21h | GitHub Actions receipt |
+| `c045a204` `System updates` | 2026-09-11 18:22:53Z | 2026-09-11 18:23:26Z | 33s | GitHub Actions receipt |
+| `f0fc7bf0` `Update VERIFICATION.md` | 2026-09-11 18:35:48Z | 2026-09-11 18:36:07Z | 19s | GitHub Actions receipt |
+| `8bbc49bc` `This is the updates for the verification of...` | 2026-09-11 22:13:49Z | 2026-09-11 22:14:10Z | 21s | GitHub Actions receipt |
+| `521f298e` `Update VERIFICATION.md` | 2026-09-11 22:31:59Z | 2026-09-11 22:32:08Z | 9s | GitHub Actions receipt |
+| `c185912b` `update` | 2026-09-11 23:21:02Z | 2026-09-11 23:21:57Z | 55s | GitHub Actions receipt |
+| `42ae2802` `updates` | 2026-09-11 23:49:52Z | 2026-09-11 23:55:03Z | 5m | GitHub Actions receipt |
+| `e2db1aef` `Merge branch 'main' of github.com/mcmrwalls...` | 2026-09-11 23:52:21Z | 2026-09-11 23:55:03Z | 2m | GitHub Actions receipt |
+| `24e165b6` `Mark unresolvable X anchor` | 2026-09-11 23:53:01Z | 2026-09-11 23:55:03Z | 2m | GitHub Actions receipt |
+| `568cd322` `Create 2026-09-15_ZB_CONCLUSION.md` | 2026-09-15 18:56:00Z | 2026-09-15 18:56:40Z | 40s | GitHub Actions receipt |
+| `afd9c386` `Merge branch 'main' of github.com/mcmrwalls...` | 2026-09-15 18:56:06Z | 2026-09-15 18:56:40Z | 34s | GitHub Actions receipt |
+| `23a8ea63` `Update build_verification.py` | 2026-09-15 19:08:18Z | 2026-09-15 19:08:34Z | 16s | GitHub Actions receipt |
 
 ## External anchors (X)
 
@@ -164,6 +165,16 @@ finds them unaided will reasonably assume they were meant to stay hidden.
   sooner than its documented 90 days. Receipts for July and early August were
   recovered from GH Archive after GitHub had already dropped them. Coverage
   before 24 August 2026 is therefore partial, as the gap column shows.
+
+- **A rendered link in this document pointed at an unrelated account.** The
+  coverage table truncates long commit subjects. Merge commits carry the clone
+  URL in their subject, and truncating commit `e2db1aef` left the bare prefix
+  `https://github.com/m`, which GitHub autolinked to a stranger's profile.
+  Present from the 2026-09-11 build until 2026-09-15. It affected the rendered
+  link only — no SHA, claimed time, proven time, gap or source in the table was
+  wrong, and no receipt was involved. Fixed in `scripts/build_verification.py`
+  by stripping URL schemes before truncation. This document is generated, so the
+  correction is a rebuild rather than an edit to a published file.
 
 ## How to verify, independently
 
