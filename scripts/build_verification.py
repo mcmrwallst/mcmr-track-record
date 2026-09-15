@@ -15,6 +15,7 @@ No third-party packages required.
 import glob
 import json
 import os
+import re
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -22,6 +23,22 @@ from datetime import datetime, timezone
 REPO = "mcmrwallst/mcmr-track-record"
 OUT = "VERIFICATION.md"
 ZERO = "0" * 40
+
+URL_RE = re.compile(r"https?://\S+")
+
+
+def clean_subject(subject, limit=46):
+    """Table-safe commit subject.
+
+    Merge commits embed the full clone URL. Truncating one mid-path leaves a
+    bare prefix such as "https://github.com/m", which GitHub's renderer
+    autolinks to an unrelated account. Drop the scheme so nothing autolinks,
+    then truncate, then neutralise the table and code delimiters.
+    """
+    subject = URL_RE.sub(lambda m: m.group(0).split("://", 1)[1], subject)
+    if len(subject) > limit:
+        subject = subject[:limit - 3] + "..."
+    return subject.replace("|", "\\|").replace("`", "'")
 
 
 def git(args):
@@ -174,10 +191,7 @@ def main():
     w("|---|---|---|---|---|")
 
     for sha, meta in ordered:
-        subject = meta["subject"]
-        if len(subject) > 46:
-            subject = subject[:43] + "..."
-        subject = subject.replace("|", "\\|")
+        subject = clean_subject(meta["subject"])
         if sha in best:
             when_dt, head, src = best[sha]
             delta = when_dt - meta["when"]
@@ -195,7 +209,7 @@ def main():
             proven = when_dt.strftime("%Y-%m-%d %H:%M:%SZ")
         else:
             gap = proven = src = "—"
-        w(f"| `{sha[:8]}` {subject} | {meta['when'].strftime('%Y-%m-%d %H:%M:%SZ')} "
+        w(f"| `{sha[:8]}` `{subject}` | {meta['when'].strftime('%Y-%m-%d %H:%M:%SZ')} "
           f"| {proven} | {gap} | {src} |")
 
     w("")
@@ -320,6 +334,16 @@ def main():
     w("  sooner than its documented 90 days. Receipts for July and early August were")
     w("  recovered from GH Archive after GitHub had already dropped them. Coverage")
     w("  before 24 August 2026 is therefore partial, as the gap column shows.")
+    w("")
+    w("- **A rendered link in this document pointed at an unrelated account.** The")
+    w("  coverage table truncates long commit subjects. Merge commits carry the clone")
+    w("  URL in their subject, and truncating commit `e2db1aef` left the bare prefix")
+    w("  `https://github.com/m`, which GitHub autolinked to a stranger's profile.")
+    w("  Present from the 2026-09-11 build until 2026-09-15. It affected the rendered")
+    w("  link only — no SHA, claimed time, proven time, gap or source in the table was")
+    w("  wrong, and no receipt was involved. Fixed in `scripts/build_verification.py`")
+    w("  by stripping URL schemes before truncation. This document is generated, so the")
+    w("  correction is a rebuild rather than an edit to a published file.")
     w("")
     w("## How to verify, independently")
     w("")
