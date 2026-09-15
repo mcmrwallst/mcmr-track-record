@@ -5,7 +5,7 @@ prove, and how to check both without taking my word for anything. It is
 generated from the receipt files in `/receipts`, not written by hand, so it
 cannot drift out of line with the evidence.
 
-*Generated 2026-09-11 23:55 UTC — 24 of 24 commits attested.*
+*Generated 2026-09-15 18:56 UTC — 26 of 26 commits attested.*
 
 ---
 
@@ -73,6 +73,8 @@ equally strong, and the table does not pretend otherwise.
 | `42ae2802` updates | 2026-09-11 23:49:52Z | 2026-09-11 23:55:03Z | 5m | GitHub Actions receipt |
 | `e2db1aef` Merge branch 'main' of https://github.com/m... | 2026-09-11 23:52:21Z | 2026-09-11 23:55:03Z | 2m | GitHub Actions receipt |
 | `24e165b6` Mark unresolvable X anchor | 2026-09-11 23:53:01Z | 2026-09-11 23:55:03Z | 2m | GitHub Actions receipt |
+| `568cd322` Create 2026-09-15_ZB_CONCLUSION.md | 2026-09-15 18:56:00Z | 2026-09-15 18:56:40Z | 40s | GitHub Actions receipt |
+| `afd9c386` Merge branch 'main' of https://github.com/m... | 2026-09-15 18:56:06Z | 2026-09-15 18:56:40Z | 34s | GitHub Actions receipt |
 
 ## External anchors (X)
 
