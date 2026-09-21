@@ -19,6 +19,7 @@
 |Stop distance|88.43 pts (1.138%)|
 |Risk|**1R = 4.00% of equity**|
 |Target|None. Thesis-based exit.|
+|Notional exposure |\~352% of equity|
 
 **R ladder**
 
@@ -178,7 +179,5 @@ The capital expenditure channel above is my candidate explanation for what would
 
 \---
 
-*Published under @mcmrwallst. Results are reported in R and as a percentage of total account equity. Contract counts, notional exposure and account values are not disclosed. **Drafted from the author's own notes and analysis; AI assistance used for wording, structure and verification of figures.***
-
-
+*Published under @mcmrwallst. Results are reported in R and as a percentage of total account equity. Notional exposure is stated as a percentage of equity. Contract counts and account values are not disclosed. **Drafted from the author's own notes and analysis; AI assistance used for wording, structure and verification of figures.***
 
