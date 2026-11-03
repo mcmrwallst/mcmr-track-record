@@ -5,7 +5,7 @@ prove, and how to check both without taking my word for anything. It is
 generated from the receipt files in `/receipts`, not written by hand, so it
 cannot drift out of line with the evidence.
 
-*Generated 2026-11-02 22:00 UTC — 31 of 31 commits attested.*
+*Generated 2026-11-03 22:38 UTC — 32 of 32 commits attested.*
 
 ---
 
@@ -80,6 +80,7 @@ equally strong, and the table does not pretend otherwise.
 | `755448aa` `Add notional exposure to position table` | 2026-09-21 23:38:55Z | 2026-09-21 23:39:09Z | 14s | GitHub Actions receipt |
 | `3d03ea28` `First signed commit` | 2026-10-02 16:05:27Z | 2026-10-02 16:09:46Z | 4m | GitHub Actions receipt |
 | `ee969d2a` `Create 2026-11-02_SPX500_UPDATE.md` | 2026-11-02 22:00:19Z | 2026-11-02 22:00:38Z | 19s | GitHub Actions receipt |
+| `3f9f253d` `Create 2026-11-03_SPX500_CORRECTION.md` | 2026-11-03 22:38:35Z | 2026-11-03 22:38:51Z | 16s | GitHub Actions receipt |
 
 ## External anchors (X)
 
