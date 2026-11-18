@@ -15,9 +15,13 @@ Read that before treating any date here as evidence. In short: the commit
 history proves sequence, content, and that nothing has been rewritten; the files
 in [`/receipts`](receipts/) carry GitHub's own server-side record of when each
 commit arrived, independently confirmable via GH Archive; OpenTimestamps proofs
-anchor the same to the Bitcoin blockchain. Execution and P&L are verified
-separately through a broker-linked third party — nothing in this repository
-should be taken as proof a trade was placed.
+anchor the same to the Bitcoin blockchain.
+
+**Model portfolio.** This is the reference book for my trading: every decision
+is published and timestamped in real time, before the outcome is known. Live
+execution follows the same theses, though sizing and timing can differ, so
+results here are the reference book's rather than an account statement. See
+[methodology/v1.md](methodology/v1.md).
 
 ## Rules of the ledger
 
@@ -39,7 +43,7 @@ should be taken as proof a trade was placed.
    - `2026-07-30_ES_EXIT.md`
 5. **Losers stay.** Nothing is deleted. A ledger you can prune is a highlight
    reel, and everyone knows it.
-6. **Archives** (X data export, screenshots, broker statements) go in
+6. **Archives** (X data export, screenshots) go in
    `/archives` — committing them stamps the date of possession.
 
 ## Structure
