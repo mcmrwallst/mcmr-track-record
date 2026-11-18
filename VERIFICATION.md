@@ -5,7 +5,7 @@ prove, and how to check both without taking my word for anything. It is
 generated from the receipt files in `/receipts`, not written by hand, so it
 cannot drift out of line with the evidence.
 
-*Generated 2026-11-18 11:05 UTC — 34 of 34 commits attested.*
+*Generated 2026-11-18 11:17 UTC — 35 of 35 commits attested.*
 
 ---
 
@@ -83,6 +83,7 @@ equally strong, and the table does not pretend otherwise.
 | `3f9f253d` `Create 2026-11-03_SPX500_CORRECTION.md` | 2026-11-03 22:38:35Z | 2026-11-03 22:38:51Z | 16s | GitHub Actions receipt |
 | `28a20167` `Create 2026-11-05_SPX500_UPDATE.md` | 2026-11-05 22:18:14Z | 2026-11-05 22:18:27Z | 13s | GitHub Actions receipt |
 | `8a661f1a` `Clarify model portfolio; withdraw broker-ve...` | 2026-11-18 11:05:32Z | 2026-11-18 11:05:47Z | 15s | GitHub Actions receipt |
+| `3936c7f8` `Add reporting methodology v1` | 2026-11-18 11:16:48Z | 2026-11-18 11:17:08Z | 20s | GitHub Actions receipt |
 
 ## External anchors (X)
 
