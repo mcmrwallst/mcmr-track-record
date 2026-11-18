@@ -5,7 +5,7 @@ prove, and how to check both without taking my word for anything. It is
 generated from the receipt files in `/receipts`, not written by hand, so it
 cannot drift out of line with the evidence.
 
-*Generated 2026-11-05 22:18 UTC — 33 of 33 commits attested.*
+*Generated 2026-11-18 11:05 UTC — 34 of 34 commits attested.*
 
 ---
 
@@ -82,6 +82,7 @@ equally strong, and the table does not pretend otherwise.
 | `ee969d2a` `Create 2026-11-02_SPX500_UPDATE.md` | 2026-11-02 22:00:19Z | 2026-11-02 22:00:38Z | 19s | GitHub Actions receipt |
 | `3f9f253d` `Create 2026-11-03_SPX500_CORRECTION.md` | 2026-11-03 22:38:35Z | 2026-11-03 22:38:51Z | 16s | GitHub Actions receipt |
 | `28a20167` `Create 2026-11-05_SPX500_UPDATE.md` | 2026-11-05 22:18:14Z | 2026-11-05 22:18:27Z | 13s | GitHub Actions receipt |
+| `8a661f1a` `Clarify model portfolio; withdraw broker-ve...` | 2026-11-18 11:05:32Z | 2026-11-18 11:05:47Z | 15s | GitHub Actions receipt |
 
 ## External anchors (X)
 
@@ -131,10 +132,12 @@ re-derived independently.
 
 ## What this repository does NOT prove
 
-**That trades were placed, at the prices stated, in the size stated.** Nothing
-here is broker data. Execution and P&L verification is handled separately
-through a broker-linked third party, and that is the only thing that should be
-treated as authoritative on execution.
+**That trades were placed, at the prices stated, in the size stated.** This is
+a model portfolio: the reference book for my trading. Every decision is
+published and timestamped in real time, before the outcome is known. Live
+execution follows the same theses, though sizing and timing can differ, so
+results here are the reference book's rather than an account statement. See
+[methodology/v1.md](methodology/v1.md).
 
 **That an entry pre-dates the trade it describes, beyond what the table shows.**
 Where the gap column reads in days, the commit is bounded only loosely. Those
@@ -156,6 +159,19 @@ finds them unaided will reasonably assume they were meant to stay hidden.
   headed "posted now so I can't move goalposts later."** That contradicts the
   section's purpose. It was not concealed and is not defended; it is why the
   ledger rule has since changed to forbid editing a published file at all.
+
+- **A published file was edited after that rule was adopted.** Commit
+  `755448aa`, about 3h40m after `2026-09-21_SPX_THESIS.md` was published, added a
+  notional-exposure row and reworded its footer. No price, stop, risk figure or
+  kill condition changed. It breaks the rule adopted on 2026-09-11 all the same,
+  and is listed here for that reason.
+
+- **An execution-verification claim was published and later withdrawn.** Earlier
+  versions of this document and the README, and `2026-09-15_ZB_CONCLUSION.md`,
+  said execution and P&L were verified separately through a broker-linked third
+  party. That is superseded: results here are reference-book results, and
+  execution records are not published. The conclusion file is left unedited
+  under Rule 2; this entry is the correction.
 
 - **Entry timestamps have lagged commit times.** The SPX entry of 2026-09-02 is
   stamped 19:58:07 UTC in the file and was committed at 21:44:01 UTC — a lag of
