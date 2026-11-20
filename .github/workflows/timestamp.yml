@@ -80,12 +80,25 @@ jobs:
       - name: Rebuild VERIFICATION.md from the evidence
         run: python scripts/build_verification.py
 
+      # Performance pages are generated from performance/registry.csv, marks.csv
+      # and prices/. Tests run first; if they or the build's validation fail,
+      # the pages are left as they were and the receipt is still committed, so
+      # a data problem can never block timestamping.
+      - name: Rebuild performance pages from the registry
+        run: |
+          pip install --quiet matplotlib pytest
+          if python -m pytest -q tests && python scripts/build_performance.py; then
+            echo "Performance pages rebuilt."
+          else
+            echo "::warning::Performance build stopped; pages not updated. See the log above."
+          fi
+
       - name: Commit proofs back to the ledger
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add receipts/ VERIFICATION.md
+          git add receipts/ VERIFICATION.md PERFORMANCE.md performance/
           if git diff --cached --quiet; then
             echo "Nothing to commit."
             exit 0
