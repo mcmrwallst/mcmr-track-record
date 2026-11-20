@@ -1,0 +1,28 @@
+{
+  "_what_this_is": "Frozen month-end record. Never regenerated; corrections go in a dated notice beside this file (methodology \u00a710).",
+  "month": "2026-08",
+  "partial_month": false,
+  "methodology_version": "1.2",
+  "built_from_commit": "231c4fa",
+  "frozen_on": "2026-11-20",
+  "label": "Backfilled on 2026-11-20",
+  "return_pct": -3.6771,
+  "index": 99.434,
+  "open_at_month_end": [
+    {
+      "trade_id": "T002",
+      "instrument": "ZBU26",
+      "mark": 109.125,
+      "open_r": 1.7,
+      "open_pct": 3.434
+    }
+  ],
+  "closed_in_month": [
+    {
+      "trade_id": "T001",
+      "exit_date": "2026-08-05",
+      "result_r": -1.0,
+      "result_pct": -4.0
+    }
+  ]
+}

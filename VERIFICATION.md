@@ -5,7 +5,7 @@ prove, and how to check both without taking my word for anything. It is
 generated from the receipt files in `/receipts`, not written by hand, so it
 cannot drift out of line with the evidence.
 
-*Generated 2026-11-20 23:34 UTC — 38 of 38 commits attested.*
+*Generated 2026-11-20 23:46 UTC — 42 of 42 commits attested.*
 
 ---
 
@@ -85,8 +85,12 @@ equally strong, and the table does not pretend otherwise.
 | `8a661f1a` `Clarify model portfolio; withdraw broker-ve...` | 2026-11-18 11:05:32Z | 2026-11-18 11:05:47Z | 15s | GitHub Actions receipt |
 | `3936c7f8` `Add reporting methodology v1` | 2026-11-18 11:16:48Z | 2026-11-18 11:17:08Z | 20s | GitHub Actions receipt |
 | `1e93fb37` `Create 2026-11-20_SPX500_UPDATE.md` | 2026-11-20 20:54:25Z | 2026-11-20 20:54:38Z | 13s | GitHub Actions receipt |
+| `d975d50f` `Add performance registry, marks and price data` | 2026-11-20 23:00:42Z | 2026-11-20 23:46:35Z | 45m | GitHub Actions receipt |
 | `94c8493d` `Methodology 1.1: date-only fills, single-co...` | 2026-11-20 23:05:26Z | 2026-11-20 23:05:49Z | 23s | GitHub Actions receipt |
+| `6fdb1722` `Merge branch 'main' into performance-build` | 2026-11-20 23:11:07Z | 2026-11-20 23:46:35Z | 35m | GitHub Actions receipt |
 | `1473b0b1` `Methodology 1.2: simple, non-compounded ret...` | 2026-11-20 23:33:45Z | 2026-11-20 23:34:01Z | 16s | GitHub Actions receipt |
+| `f30e51a2` `Merge branch 'main' into performance-build` | 2026-11-20 23:34:56Z | 2026-11-20 23:46:35Z | 11m | GitHub Actions receipt |
+| `231c4fad` `Add performance build script, tests and wor...` | 2026-11-20 23:42:31Z | 2026-11-20 23:46:35Z | 4m | GitHub Actions receipt |
 
 ## External anchors (X)
 

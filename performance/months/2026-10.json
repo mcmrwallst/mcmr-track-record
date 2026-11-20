@@ -1,0 +1,21 @@
+{
+  "_what_this_is": "Frozen month-end record. Never regenerated; corrections go in a dated notice beside this file (methodology \u00a710).",
+  "month": "2026-10",
+  "partial_month": false,
+  "methodology_version": "1.2",
+  "built_from_commit": "231c4fa",
+  "frozen_on": "2026-11-20",
+  "label": "Backfilled on 2026-11-20",
+  "return_pct": 3.2328,
+  "index": 116.4901,
+  "open_at_month_end": [
+    {
+      "trade_id": "T005",
+      "instrument": "SPX",
+      "mark": 7580.07,
+      "open_r": 2.1825,
+      "open_pct": 8.7301
+    }
+  ],
+  "closed_in_month": []
+}
