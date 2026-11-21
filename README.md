@@ -15,6 +15,7 @@ Every thesis is committed and timestamped here first. Winners and losers stay.
 - **[Performance →](PERFORMANCE.md)** Returns, drawdowns and every trade, on one page
 - **[Trades →](trades/)** The thesis, updates and exit for each trade, in order
 - **[Verification →](VERIFICATION.md)** How to check nothing was backdated or edited
+- **[X: @mcmrwallst →](https://x.com/mcmrwallst)** Each trade as it happens, posted live
 
 ### How it works
 
@@ -30,9 +31,9 @@ Every thesis is committed and timestamped here first. Winners and losers stay.
 <details>
 <summary><b>What this record proves, and what it doesn't</b></summary>
 
-The commit history proves the order and content of every entry, and that nothing has been rewritten. The files in [`/receipts`](receipts/) carry GitHub's own server-side record of when each commit arrived, independently confirmable via GH Archive, and OpenTimestamps proofs anchor the same to the Bitcoin blockchain.
+The commit history proves the order and content of every entry, and that nothing has been rewritten. The files in [`/receipts`](receipts/) carry GitHub's own server-side record of when each commit arrived, independently confirmable via GH Archive, and OpenTimestamps proofs anchor the same to the Bitcoin blockchain. Trades are also posted live on [X (@mcmrwallst)](https://x.com/mcmrwallst), and every post ID carries X's own creation time: a second clock, outside GitHub.
 
-It does not prove that trades were executed at the prices stated: this is a model portfolio. Nor can a sample this small separate skill from luck. What it offers is reasoning fixed in public before the outcome, to be judged on its merits rather than reconstructed afterwards.
+Prices are the levels at the moment each decision was made, published with it and checked against that day's traded range. As a model portfolio, they record the decision rather than a broker fill. What the record offers is reasoning fixed in public before the outcome, to be judged on its merits rather than reconstructed afterwards.
 
 Full detail, including every known departure from the rules: [VERIFICATION.md](VERIFICATION.md).
 
