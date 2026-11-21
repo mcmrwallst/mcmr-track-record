@@ -86,7 +86,7 @@ jobs:
       # a data problem can never block timestamping.
       - name: Rebuild performance pages from the registry
         run: |
-          pip install --quiet matplotlib pytest
+          pip install --quiet matplotlib==3.11.2 pytest==9.1.1   # pinned so charts rebuild byte-for-byte
           if python -m pytest -q tests && python scripts/build_performance.py; then
             echo "Performance pages rebuilt."
           else
@@ -98,7 +98,7 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add receipts/ VERIFICATION.md PERFORMANCE.md performance/
+          git add receipts/ VERIFICATION.md PERFORMANCE.md performance/ README.md
           if git diff --cached --quiet; then
             echo "Nothing to commit."
             exit 0

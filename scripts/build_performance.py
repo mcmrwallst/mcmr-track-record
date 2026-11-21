@@ -51,6 +51,7 @@ R_TOLERANCE = 0.02                # stated R vs R recomputed from prices
 BACKFILL_AFTER_DAYS = 7           # a period frozen later than this is labelled backfilled
 MIN_MONTHS_FOR_ANNUALISED = 24    # methodology §8 gate
 
+MINUS = "\u2212"                  # typographic minus for displayed figures
 GREEN = "#1D9E75"
 RED = "#D85A30"
 GREY = "#8A8A8A"
@@ -107,11 +108,11 @@ def fmt_pct(x, signed=True, nd=2):
         return "—"
     if abs(x) < 0.5 * 10 ** -nd:
         return f"{0:.{nd}f}%"
-    return f"{x:+.{nd}f}%" if signed else f"{x:.{nd}f}%"
+    return (f"{x:+.{nd}f}%" if signed else f"{x:.{nd}f}%").replace("-", MINUS)
 
 
 def fmt_r(x):
-    return "—" if x is None else f"{x:+.2f}R"
+    return "—" if x is None else f"{x:+.2f}R".replace("-", MINUS)
 
 
 def fmt_date(d):
@@ -229,10 +230,16 @@ def methodology_version(path="methodology/v1.md"):
     return m.group(1)
 
 
+DATA_PATHS = ["performance/registry.csv", "performance/marks.csv", "performance/prices",
+              "performance/theses.csv", "scripts/build_performance.py", "methodology/v1.md"]
+
+
 def git_commit():
+    """The last commit that changed an input, so unrelated pushes don't change the pages."""
     try:
-        return subprocess.run(["git", "rev-parse", "--short=7", "HEAD"], capture_output=True,
-                              text=True, check=True).stdout.strip()
+        out = subprocess.run(["git", "log", "-1", "--format=%h", "--abbrev=7", "--"] + DATA_PATHS,
+                             capture_output=True, text=True, check=True).stdout.strip()
+        return out or "working-copy"
     except (OSError, subprocess.CalledProcessError):
         return "working-copy"
 
@@ -646,7 +653,8 @@ def _plt():
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
     matplotlib.rcParams.update({
-        "svg.hashsalt": "mcmr-track-record", "svg.fonttype": "none",
+        "svg.hashsalt": "mcmr-track-record", "svg.fonttype": "path",
+        "font.family": "DejaVu Sans",
         "font.size": 10, "text.color": GREY, "axes.labelcolor": GREY,
         "axes.edgecolor": GREY, "xtick.color": GREY, "ytick.color": GREY,
         "axes.spines.top": False, "axes.spines.right": False,
@@ -706,12 +714,12 @@ def draw_charts(out_dir, months, daily, trades, stats):
                     step=None, label="month-end")
     ax.plot([d for d, _ in m_dd], [v for _, v in m_dd], color=RED, marker="o", lw=1.5)
     if d_trough:
-        ax.annotate(f"daily MDD {d_mdd:.1f}%", (d_trough, d_mdd), textcoords="offset points",
+        ax.annotate(f"daily MDD {d_mdd:.1f}%".replace("-", MINUS), (d_trough, d_mdd), textcoords="offset points",
                     xytext=(-8, -2), ha="right", fontsize=8)
     if m_trough:
-        ax.annotate(f"month-end MDD {m_mdd:.1f}%", (m_trough, m_mdd), textcoords="offset points",
+        ax.annotate(f"month-end MDD {m_mdd:.1f}%".replace("-", MINUS), (m_trough, m_mdd), textcoords="offset points",
                     xytext=(6, -10), fontsize=8, color=RED)
-    ax.set_ylabel("Below peak (pts of start equity)")
+    ax.set_ylabel("Below peak (% of start equity)")
     ax.set_ylim(min(d_mdd, m_mdd, -1) * 1.3, 0.5)
     ax.legend(frameon=False, fontsize=8, loc="lower left")
     _month_axis(ax)
@@ -727,7 +735,7 @@ def draw_charts(out_dir, months, daily, trades, stats):
             b.set_hatch("///")
             b.set_edgecolor("white")
     for b, v in zip(bars, vals):
-        ax.annotate(f"{v:+.1f}%", (b.get_x() + b.get_width() / 2, v), textcoords="offset points",
+        ax.annotate(f"{v:+.1f}%".replace("-", MINUS), (b.get_x() + b.get_width() / 2, v), textcoords="offset points",
                     xytext=(0, 4 if v >= 0 else -12), ha="center", fontsize=8)
     ax.axhline(0, color=GREY, lw=0.8)
     _pad_bars(ax, vals)
@@ -741,7 +749,7 @@ def draw_charts(out_dir, months, daily, trades, stats):
     bars = ax.bar([t.trade_id for t in closed], vals,
                   color=[GREEN if v >= 0 else RED for v in vals])
     for b, v in zip(bars, vals):
-        ax.annotate(f"{v:+.2f}R", (b.get_x() + b.get_width() / 2, v), textcoords="offset points",
+        ax.annotate(f"{v:+.2f}R".replace("-", MINUS), (b.get_x() + b.get_width() / 2, v), textcoords="offset points",
                     xytext=(0, 4 if v >= 0 else -12), ha="center", fontsize=8)
     ax.axhline(0, color=GREY, lw=0.8)
     _pad_bars(ax, vals)
@@ -757,10 +765,10 @@ def draw_charts(out_dir, months, daily, trades, stats):
             tag = "open"
         elif classify(t.result_r) == "win":
             style = dict(marker="o", mfc=GREEN, mec=GREEN)
-            tag = f"{t.result_r:+.2f}R"
+            tag = f"{t.result_r:+.2f}R".replace("-", MINUS)
         else:
             style = dict(marker="o", mfc="none", mec=RED)
-            tag = f"{t.result_r:+.2f}R"
+            tag = f"{t.result_r:+.2f}R".replace("-", MINUS)
         ax.plot([i], [t.risk_pct], ms=9, ls="none", **style)
         ax.annotate(f"{t.risk_pct:.2f}%\n{tag}", (i, t.risk_pct), textcoords="offset points",
                     xytext=(0, 9), ha="center", fontsize=8)
@@ -798,109 +806,105 @@ def monthly_grid(months):
                 cells.append("")
                 continue
             mark = ("*" if mo.partial else "") + ("†" if not mo.complete else "")
-            cells.append(f"{mo.ret:+.2f}{mark}")
+            cells.append(f"{mo.ret:+.2f}{mark}".replace("-", MINUS))
             comp += mo.ret
         ytd_mark = "" if all(x.complete for x in months if x.y == y) else "†"
-        lines.append(f"| {y} | " + " | ".join(cells) + f" | **{comp:+.2f}{ytd_mark}** |")
+        lines.append(f"| {y} | " + " | ".join(cells) + f" | **{comp:+.2f}{ytd_mark}** |".replace("-", MINUS))
     return lines
 
 
+def headline_cells(ctx, where="page"):
+    """The five numbers a reader sees first, shared by PERFORMANCE.md and the README."""
+    m, s = ctx["metrics"], ctx["stats"]
+    live = ctx["months"][-1]
+    mtd_label = "This month" + ("" if live.complete else " (to date)")
+    win = "—" if s["win_rate"] is None else f"{s['win_rate']:.0f}%"
+    payoff = "" if s["payoff"] is None else f"wins avg {s['payoff']:.1f}× losses"
+    n_open = m["n_open"]
+    return [
+        ("Since inception", f"**{fmt_pct(m['since_inception'])}**",
+         f"simple · compounded {fmt_pct(m['compounded'])}"),
+        (mtd_label, f"**{fmt_pct(live.ret)}**", f"{calendar.month_abbr[live.m]} {live.y}"),
+        ("Max drawdown", f"**{fmt_pct(m['mdd_m'])}**", f"month-end · daily {fmt_pct(m['mdd_d'], nd=1)}"),
+        ("Win rate", f"**{win}**", f"{s['n_win']} of {s['n_closed']} · {payoff}" if payoff
+         else f"{s['n_win']} of {s['n_closed']} closed"),
+        ("Open positions", f"**{n_open}**",
+         ("none" if not n_open else "listed below" if where == "page" else "on the performance page")),
+    ]
+
+
+def headline_table(ctx, where="page"):
+    cells = headline_cells(ctx, where)
+    return ["| " + " | ".join(c[0] for c in cells) + " |",
+            "|" + ":---:|" * len(cells),
+            "| " + " | ".join(c[1] for c in cells) + " |",
+            "| " + " | ".join(f"<sub>{c[2]}</sub>" for c in cells) + " |"]
+
+
 def build_performance_md(ctx):
+    """Front page. The first screen answers 'how has it done, and how risky' in under 30
+    seconds; everything else sits in collapsed sections below, in the order a reviewer
+    would ask for it."""
     m, s, months, trades = ctx["metrics"], ctx["stats"], ctx["months"], ctx["trades"]
-    verdicts, names = ctx["verdicts"], ctx["names"]
-    L = ["# Performance", ""]
-    L += page_header(ctx["version"], ctx["commit"], ctx["as_of"])
-    L += ["| Index | Since inception | Max drawdown (month-end) | Max drawdown (daily) "
-          "| Current drawdown | Closed / open |",
-          "|---|---|---|---|---|---|",
-          f"| {m['index']:.2f} | {fmt_pct(m['since_inception'])} | "
-          f"{fmt_pct(m['mdd_m'])} ({m['mdd_m_span']}) | {fmt_pct(m['mdd_d'])} ({m['mdd_d_span']}) | "
-          f"{fmt_pct(m['current_dd'])} | {s['n_closed']} / {m['n_open']} |",
-          "",
-          f"Compounded equivalent of the same monthly returns: **{fmt_pct(m['compounded'])}** "
-          "since inception, for comparison with records that compound. Every other figure "
-          "on this page is simple (methodology §7).",
-          "",
-          f"Inception {fmt_date(INCEPTION)}. Figures to {fmt_date(ctx['as_of'])} include open "
-          "positions at that day's close; month-end figures use completed months only. "
-          "Drawdowns are in percentage points of starting equity.",
-          "",
-          "![Index](performance/charts/index.svg)",
-          "",
-          "![Drawdown](performance/charts/drawdown.svg)",
-          "",
-          "*Month-end values, with the daily drawdown line for comparison (methodology §8).*",
-          ""]
+    verdicts, names, as_of = ctx["verdicts"], ctx["names"], ctx["as_of"]
+    L = ["# MCMR · Model Portfolio", "",
+         f"**Discretionary macro, published before the outcome.** Data to {fmt_date(as_of)} close · "
+         f"inception {fmt_date(INCEPTION)}", "",
+         "<sub>Model portfolio: every decision is published and timestamped in real time; "
+         "results are simple (not compounded), gross, and not an account statement.</sub>", ""]
+    L += headline_table(ctx) + ["", "![Growth](performance/charts/index.svg)", "",
+                                "### Monthly returns (%)", ""]
+    L += monthly_grid(months)
+    notes = ["\\* partial month"]
+    if months and not months[-1].complete:
+        notes.append(f"† to {fmt_date(as_of)}, includes open position; not final")
+    L += ["", "<sub>" + " · ".join(notes) + "</sub>", ""]
+
+    open_now = [t for t in trades.values() if not t.closed]
+    if open_now:
+        L += ["### Open position" + ("s" if len(open_now) > 1 else ""), "",
+              "| Trade | Thesis | Direction | Entry | Stop | Last close | Open result |",
+              "|---|---|---|---:|---:|---:|---:|"]
+        for t in open_now:
+            px = value_at(t, as_of, {}, ctx["prices"], False)
+            L.append(f"| [{t.trade_id}](performance/theses/{t.thesis_id}.md) | "
+                     f"{names.get(t.thesis_id, t.thesis_id)} | {'Long' if t.direction == 1 else 'Short'} "
+                     f"{t.price_key} | {fmt_price(t.entry, t.bond)} | {fmt_price(t.stop, t.bond)} | "
+                     f"{fmt_price(px, t.bond)} | **{fmt_pct(t.open_pct(px))}** ({fmt_r(t.open_r(px))}) |")
+        L += ["", "<sub>Unrealised. Included in this month's figure, never in trade statistics.</sub>", ""]
+
+    L += ["### Reports", ""] + reports_table(months) + [""]
+
+    # ---- detail, collapsed ----
     uw_n, uw_on = m["under_water"]
     payoff_text = "—" if s["payoff"] is None else f"{s['payoff']:.2f}"
     best_share_text = ("—" if s["best_share"] is None
                        else f"{s['best_share']:.0f}% ({s['best_trade']})")
-    hit = ctx["hit"]
-    L += ["## Key statistics", "",
-          f"| Returns (completed months, n = {m['n_months']}) | | Trades (closed, n = {s['n_closed']}) | |",
-          "|---|---|---|---|",
-          f"| Year to date | {fmt_pct(m['ytd'])} | Trade win rate | "
-          f"{fmt_pct(s['win_rate'], False, 0)} ({s['n_win']} of {s['n_closed']}) |",
-          f"| Best / worst month | {fmt_pct(m['best'])} / {fmt_pct(m['worst'])} | Thesis hit rate | "
-          f"{hit['text']} |",
+    L += ["---", "", "<details>", "<summary><b>Risk and statistics</b></summary>", "",
+          "![Drawdown](performance/charts/drawdown.svg)", "",
+          "| Returns | | Trades | |", "|---|---:|---|---:|",
+          f"| Completed months | {m['n_months']} | Closed trades | {s['n_closed']} |",
+          f"| Best / worst month | {fmt_pct(m['best'])} / {fmt_pct(m['worst'])} | Win rate | "
+          f"{fmt_pct(s['win_rate'], False, 0)} |",
           f"| Positive months | {m['pos_months']} of {m['n_months']} | Avg win / avg loss | "
           f"{fmt_r(s['avg_win'])} / {fmt_r(s['avg_loss'])} |",
-          f"| Longest under water | {uw_n} month{'s' if uw_n != 1 else ''}"
-          f"{' (ongoing)' if uw_on else ''} | Payoff ratio | "
-          f"{payoff_text} |",
-          f"| Return ÷ MDD (not annualised) | {m['ret_mdd']} | Expectancy | {fmt_r(s['expectancy'])} |",
+          f"| Max drawdown, month-end | {fmt_pct(m['mdd_m'])} ({m['mdd_m_span']}) | Payoff ratio | {payoff_text} |",
+          f"| Max drawdown, daily | {fmt_pct(m['mdd_d'])} ({m['mdd_d_span']}) | Expectancy | {fmt_r(s['expectancy'])} |",
+          f"| Current drawdown | {fmt_pct(m['current_dd'])} | Profit factor | {s['profit_factor_text']} |",
+          f"| Longest under water | {uw_n} month{'s' if uw_n != 1 else ''}{' (ongoing)' if uw_on else ''} "
+          f"| Best-trade share of total R | {best_share_text} |",
+          f"| Return ÷ max drawdown | {m['ret_mdd']} | Avg hold, winners / losers | "
+          f"{_days(s['hold_win'])} / {_days(s['hold_loss'])} |",
           f"| Avg / max risk per trade | {fmt_pct(s['avg_risk'], False)} / {fmt_pct(s['max_risk'], False)} "
-          f"| Profit factor | {s['profit_factor_text']} |",
-          f"| Max notional exposure | {fmt_pct(s['max_notional'], False, 0)} of equity | "
-          f"Best-trade share of total R | "
-          f"{best_share_text} |",
-          f"| | | Avg hold, winners / losers | {_days(s['hold_win'])} / {_days(s['hold_loss'])} |",
-          f"| | | Longest losing streak | {s['loss_streak']} |",
+          f"| Longest losing streak | {s['loss_streak']} |",
+          f"| Max notional exposure | {fmt_pct(s['max_notional'], False, 0)} of equity | Thesis hit rate | "
+          f"{ctx['hit']['text']} |",
           "",
-          f"*Annualised return, volatility, Sharpe, Sortino and correlation with the S&P 500 are "
-          f"withheld until {MIN_MONTHS_FOR_ANNUALISED} monthly returns exist ({m['n_months']} so "
-          f"far). See methodology §8.*",
-          ""]
-    L += ["## Thesis × trade", "",
-          "|  | Trade won | Trade lost |", "|---|---|---|"]
-    for label, keys in (("Thesis confirmed", ("Confirmed",)), ("Thesis killed", ("Killed",)),
-                        ("Untested / open", None)):
-        cells = []
-        for outcome in ("win", "loss"):
-            ids = sorted(t.trade_id for t in s["closed_order"]
-                   if classify(t.result_r) == outcome and
-                   ((verdicts[t.thesis_id][0] in keys) if keys else
-                    verdicts[t.thesis_id][0] not in ("Confirmed", "Killed")))
-            cells.append(f"{len(ids)}" + (f" ({', '.join(ids)})" if ids else ""))
-        L.append(f"| {label} | {cells[0]} | {cells[1]} |")
-    L += ["", "*Closed trades only. A confirmed thesis with a losing trade means the idea was "
-          "right and the timing or sizing was not (methodology §9).*", ""]
-    L += ["![Monthly returns](performance/charts/monthly.svg)", "",
-          "![Result per trade](performance/charts/trades_r.svg)", "",
-          "![Risk per trade](performance/charts/risk.svg)", "",
-          "## Monthly returns (%)", ""] + monthly_grid(months)
-    notes = ["*\\* partial month (from inception).*"]
-    if months and not months[-1].complete:
-        notes.append(f"*† to {fmt_date(ctx['as_of'])} close, including open positions; not final.*")
-    backfilled = [mo for mo in months if mo.complete and ctx["frozen_labels"].get(mo.key, "").startswith("Backfilled")]
-    if backfilled:
-        notes.append("*" + ", ".join(f"{calendar.month_abbr[mo.m]} {mo.y}" for mo in backfilled)
-                     + f": {ctx['frozen_labels'][backfilled[0].key].lower()}, from public closing prices.*")
-    L += [""] + notes + [""]
-    open_now = [t for t in trades.values() if not t.closed]
-    L += [f"## Open positions (at {fmt_date(ctx['as_of'])} close)", ""]
-    if open_now:
-        L += ["| Trade | Thesis | Instrument | Entry | Stop | Close | Open R | Open % |",
-              "|---|---|---|---:|---:|---:|---:|---:|"]
-        for t in open_now:
-            px = value_at(t, ctx["as_of"], {}, ctx["prices"], False)
-            L.append(f"| [{t.trade_id}](performance/theses/{t.thesis_id}.md) | {t.thesis_id} | "
-                     f"{t.price_key} | {fmt_price(t.entry, t.bond)} | {fmt_price(t.stop, t.bond)} | "
-                     f"{fmt_price(px, t.bond)} | {fmt_r(t.open_r(px))} | {fmt_pct(t.open_pct(px))} |")
-        L += ["", "*Unrealised. Counted in the month-to-date figure; never in trade statistics.*"]
-    else:
-        L.append("None.")
-    L += ["", "## Theses", "",
+          f"<sub>Returns and drawdowns are % of starting equity (simple). Annualised return, "
+          f"volatility, Sharpe, Sortino and S&P 500 correlation appear once "
+          f"{MIN_MONTHS_FOR_ANNUALISED} monthly returns exist ({m['n_months']} so far).</sub>", "",
+          "</details>", "",
+          "<details>", "<summary><b>Trades and theses</b></summary>", "",
           "| Thesis | Trades | Closed R | Closed % | Verdict |", "|---|---|---:|---:|---|"]
     for th in sorted(verdicts):
         ts = [t for t in trades.values() if t.thesis_id == th]
@@ -908,14 +912,65 @@ def build_performance_md(ctx):
         r = sum(t.result_r for t in closed) if closed else None
         p = sum(t.result_pct for t in closed) if closed else None
         extra = f" + {len(ts) - len(closed)} open" if len(closed) < len(ts) else ""
-        L.append(f"| [{th} {names.get(th, '')}](performance/theses/{th}.md) | {len(closed)}{extra} | "
+        L.append(f"| [{th} · {names.get(th, '')}](performance/theses/{th}.md) | {len(closed)}{extra} | "
                  f"{fmt_r(r)} | {fmt_pct(p)} | {verdicts[th][0]} |")
-    L += ["", "*Closed R and % are simple sums across the thesis's trades, not compounded.*", "",
-          "## Reports", ""]
-    L += reports_table(months)
-    L += ["", "Data: [registry](performance/registry.csv) · [month-end marks](performance/marks.csv) · "
-          "[daily prices](performance/prices/) · [validation report](performance/VALIDATION.md)", ""]
+    L += ["", "**Was the idea right, and did the trade pay?**", "",
+          "|  | Trade won | Trade lost |", "|---|---|---|"]
+    for label, keys in (("Thesis confirmed", ("Confirmed",)), ("Thesis killed", ("Killed",)),
+                        ("Untested / open", None)):
+        cells = []
+        for outcome in ("win", "loss"):
+            ids = sorted(t.trade_id for t in s["closed_order"]
+                         if classify(t.result_r) == outcome and
+                         ((verdicts[t.thesis_id][0] in keys) if keys else
+                          verdicts[t.thesis_id][0] not in ("Confirmed", "Killed")))
+            cells.append(f"{len(ids)}" + (f" ({', '.join(ids)})" if ids else ""))
+        L.append(f"| {label} | {cells[0]} | {cells[1]} |")
+    L += ["", "![Result per trade](performance/charts/trades_r.svg)", "",
+          "![Risk per trade](performance/charts/risk.svg)", "",
+          "![Monthly returns](performance/charts/monthly.svg)", "",
+          "</details>", "",
+          "<details>", "<summary><b>Method and data</b></summary>", ""]
+    backfilled = [mo for mo in months if mo.complete
+                  and ctx["frozen_labels"].get(mo.key, "").startswith("Backfilled")]
+    L += [f"- **Model portfolio.** The reference book for my trading. Live execution follows the "
+          f"same theses, though sizing and timing can differ.",
+          f"- **Simple returns.** % of starting equity, added across months. The compounded "
+          f"equivalent ({fmt_pct(m['compounded'])}) is shown for comparison only.",
+          "- **Valuation.** Open positions at the official close: month-end marks for monthly "
+          "figures, the latest daily close for this month.",
+          "- **Gross.** Transaction costs assumed negligible; futures carry not modelled."]
+    if backfilled:
+        L.append(f"- **Backfilled months.** {', '.join(f'{calendar.month_abbr[mo.m]} {mo.y}' for mo in backfilled)} "
+                 f"were calculated on {ctx['frozen_labels'][backfilled[0].key].split(' on ')[1]} from public "
+                 "closing prices, after the fact; later months freeze at month-end.")
+    L += [f"- **Rules:** [methodology v{ctx['version']}](methodology/v1.md). "
+          f"**Data:** [registry](performance/registry.csv) · [marks](performance/marks.csv) · "
+          f"[daily prices](performance/prices/) · [validation report](performance/VALIDATION.md). "
+          f"Built from data commit `{ctx['commit']}`.", "",
+          "</details>", ""]
     return "\n".join(L)
+
+
+README_START = "<!-- performance:start (generated by scripts/build_performance.py; do not edit) -->"
+README_END = "<!-- performance:end -->"
+
+
+def update_readme(ctx, path="README.md"):
+    """Refresh the headline numbers between the markers in README.md, if the markers exist.
+    Nothing else in the README is touched."""
+    try:
+        text = open(path, encoding="utf-8").read()
+    except OSError:
+        return False
+    if README_START not in text or README_END not in text:
+        return False
+    head, rest = text.split(README_START, 1)
+    _, tail = rest.split(README_END, 1)
+    block = "\n".join([README_START] + headline_table(ctx, "readme") + [
+        "", f"<sub>Model portfolio · simple returns · data to {fmt_date(ctx['as_of'])} close · "
+            f"[full performance →](PERFORMANCE.md)</sub>", README_END])
+    return write_if_changed(path, head + block + tail)
 
 
 def reports_table(months):
@@ -1207,6 +1262,7 @@ def main(argv=None):
 
     draw_charts(os.path.join(PERF, "charts"), months, daily, trades, stats)
     write_if_changed("PERFORMANCE.md", build_performance_md(ctx))
+    update_readme(ctx)
     for th in verdicts:
         write_if_changed(os.path.join(PERF, "theses", f"{th}.md"),
                          build_thesis_md(th, names.get(th, ""), verdicts[th], trades, rows,

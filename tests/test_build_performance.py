@@ -204,3 +204,25 @@ def test_frozen_files_are_not_regenerated(tmp_path, monkeypatch):
 def test_compounded_side_figure():
     assert bp.compounded_equivalent([10.0, -10.0]) == pytest.approx(-1.0)   # 1.1 x 0.9 - 1
     assert bp.compounded_equivalent([]) == pytest.approx(0.0)
+
+
+def test_readme_block_only_touches_markers(tmp_path):
+    readme = tmp_path / "README.md"
+    readme.write_text(f"# Title\n\nintro\n\n{bp.README_START}\nold\n{bp.README_END}\n\n## Rest\nkept\n")
+    ctx = {"metrics": {"since_inception": 10.0, "compounded": 10.5, "mdd_m": -2.0, "mdd_d": -3.0,
+                       "n_open": 0},
+           "stats": {"win_rate": 50.0, "payoff": None, "n_win": 1, "n_closed": 2},
+           "months": [bp.Month(2026, 8, date(2026, 7, 31), date(2026, 8, 31), True, False, ret=4.0)],
+           "as_of": date(2026, 8, 31)}
+    assert bp.update_readme(ctx, str(readme))
+    text = readme.read_text()
+    assert "old" not in text and "intro" in text and "kept" in text
+    assert "**+10.00%**" in text and "**\u22122.00%**" in text
+    assert not bp.update_readme(ctx, str(readme))           # second run: no change
+
+
+def test_readme_without_markers_is_untouched(tmp_path):
+    readme = tmp_path / "README.md"
+    readme.write_text("# Title\nno markers\n")
+    assert not bp.update_readme({}, str(readme))
+    assert readme.read_text() == "# Title\nno markers\n"
