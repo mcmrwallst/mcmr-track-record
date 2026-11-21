@@ -27,8 +27,8 @@ Run from the repository root:
 
     py scripts\\build_performance.py
 
-Requires matplotlib for the charts (pip install matplotlib). Everything else is
-standard library.
+Requires the packages in scripts/requirements.txt (exact versions, so the charts
+rebuild byte-for-byte). Everything else is standard library.
 """
 
 import argparse
@@ -51,6 +51,7 @@ R_TOLERANCE = 0.02                # stated R vs R recomputed from prices
 BACKFILL_AFTER_DAYS = 7           # a period frozen later than this is labelled backfilled
 MIN_MONTHS_FOR_ANNUALISED = 24    # methodology §8 gate
 
+REPO_URL = "https://github.com/mcmrwallst/mcmr-track-record"
 MINUS = "\u2212"                  # typographic minus for displayed figures
 GREEN = "#1D9E75"
 RED = "#D85A30"
@@ -1006,7 +1007,88 @@ def _days(x):
     return "—" if x is None else f"{x:.1f} days"
 
 
-def build_thesis_md(th, name, verdict, trades, rows, version, commit, as_of, prices):
+def _git(*args):
+    try:
+        return subprocess.run(["git", *args], capture_output=True, text=True,
+                              check=True).stdout.strip()
+    except (OSError, subprocess.CalledProcessError):
+        return None
+
+
+def proof_index(files, receipts_dir="receipts"):
+    """For each trade file: the commit that first added it, and the earliest time
+    GitHub is independently recorded as holding that commit. Sources: per-push
+    receipts (from 11 Sep 2026, each with an OpenTimestamps Bitcoin proof) and the
+    GitHub event records in receipts/ for earlier pushes (GH Archive and the API
+    backfill). A record for any later commit also covers every commit before it."""
+    heads = []                                    # (utc, head sha, receipt file or None, label)
+    for name, label in (("push_receipts_backfill.json", "GitHub event log"),
+                        ("push_receipts_gharchive.json", "GH Archive")):
+        try:
+            d = json.load(open(os.path.join(receipts_dir, name), encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        for ev in d.get("push_events", []):
+            if ev.get("head") and ev.get("received_by_github_utc"):
+                heads.append((ev["received_by_github_utc"], ev["head"], None, label))
+    if os.path.isdir(receipts_dir):
+        for name in os.listdir(receipts_dir):
+            if not re.fullmatch(r"[0-9a-f]{40}\.json", name):
+                continue
+            if not os.path.exists(os.path.join(receipts_dir, name + ".ots")):
+                continue
+            try:
+                r = json.load(open(os.path.join(receipts_dir, name), encoding="utf-8"))
+                heads.append((r["received_by_github_utc"], r["commit"], name, "receipt"))
+            except (OSError, ValueError, KeyError):
+                continue
+    heads.sort()
+    out = {}
+    for f in sorted(set(files)):
+        added = _git("log", "--follow", "--diff-filter=A", "--format=%H", "--", f)
+        if not added:
+            continue
+        sha = added.splitlines()[-1]
+        info = {"commit": sha, "by": None}
+        for when, head, name, label in heads:
+            if head == sha or _git("merge-base", "--is-ancestor", sha, head) is not None:
+                info["by"] = (when, name, label)
+                break
+        out[f] = info
+    return out
+
+
+def _utc_short(ts):
+    t = datetime.fromisoformat(ts.replace("Z", "+00:00"))
+    return f"{t.day} {t:%b %Y %H:%M}"
+
+
+def proof_table(files, proofs):
+    """Per-file proof of timing, beneath the event table."""
+    L = ["", "#### Proof of timing", "",
+         "*Each file's first commit, and the earliest time GitHub is independently recorded as "
+         "holding it. [Check one yourself in 2 minutes →](../../VERIFICATION.md#check-a-trade-in-2-minutes)*", "",
+         "| File | First commit | GitHub had it by (UTC) | Evidence |",
+         "|---|---|---|---|"]
+    for f in files:
+        info = proofs.get(f)
+        if not info:
+            continue
+        c = info["commit"]
+        name = os.path.basename(f)
+        row = f"| [{name}](../../{file_link(f)}) | [`{c[:7]}`]({REPO_URL}/commit/{c}) | "
+        if info["by"]:
+            when, rec, label = info["by"]
+            row += f"{_utc_short(when)} | "
+            row += (f"[receipt](../../receipts/{rec}) · [Bitcoin proof](../../receipts/{rec}.ots) |"
+                    if rec else f"[{label}](../../VERIFICATION.md#coverage) |")
+        else:
+            row += "— | [not covered](../../VERIFICATION.md#coverage) |"
+        L.append(row)
+    return L
+
+
+def build_thesis_md(th, name, verdict, trades, rows, version, commit, as_of, prices, proofs=None):
     ts = [t for t in trades.values() if t.thesis_id == th]
     closed = [t for t in ts if t.closed]
     v, vrow = verdict
@@ -1019,6 +1101,7 @@ def build_thesis_md(th, name, verdict, trades, rows, version, commit, as_of, pri
          f"*Model portfolio. Methodology v{version}; built from commit `{commit}`.*", "",
          "| Date (UTC) | Event | Trade | Instrument | Price | Stop | R | % | Source |",
          "|---|---|---|---|---:|---:|---:|---:|---|"]
+    proofs = proofs or {}
     th_rows = [r for r in rows if r["thesis_id"] == th]
     for r in sorted(th_rows, key=event_sort_key):
         t = trades.get(r["trade_id"])
@@ -1041,7 +1124,13 @@ def build_thesis_md(th, name, verdict, trades, rows, version, commit, as_of, pri
             f"{fmt_pct(t.open_pct(value_at(t, as_of, {}, prices, False)))} open"
             for t in open_now)]
     L += ["", "*Rows marked `update` show open profit as published in that file: the path, "
-          "including give-backs, not only the result.*", ""]
+          "including give-backs, not only the result.*"]
+    seen = []
+    for r in sorted(th_rows, key=event_sort_key):
+        if r["file"] and r["file"] not in seen:
+            seen.append(r["file"])
+    L += proof_table(seen, proofs)
+    L.append("")
     return "\n".join(L)
 
 
@@ -1263,10 +1352,11 @@ def main(argv=None):
     draw_charts(os.path.join(PERF, "charts"), months, daily, trades, stats)
     write_if_changed("PERFORMANCE.md", build_performance_md(ctx))
     update_readme(ctx)
+    proofs = proof_index([r["file"] for r in rows if r.get("file")])
     for th in verdicts:
         write_if_changed(os.path.join(PERF, "theses", f"{th}.md"),
                          build_thesis_md(th, names.get(th, ""), verdicts[th], trades, rows,
-                                         version, commit, as_of, prices))
+                                         version, commit, as_of, prices, proofs))
     vlines = ["# Validation report", "",
               f"Generated from commit `{commit}` with methodology v{version}. All checks passed; "
               "the build stops instead of publishing if any check fails.", "",

@@ -86,8 +86,9 @@ jobs:
       # a data problem can never block timestamping.
       - name: Rebuild performance pages from the registry
         run: |
-          pip install --quiet matplotlib==3.11.2 pytest==9.1.1   # pinned so charts rebuild byte-for-byte
-          if python -m pytest -q tests && python scripts/build_performance.py; then
+          # Exact versions, so the charts rebuild byte-for-byte (scripts/requirements.txt).
+          if pip install --quiet -r scripts/requirements.txt \
+             && python -m pytest -q tests && python scripts/build_performance.py; then
             echo "Performance pages rebuilt."
           else
             echo "::warning::Performance build stopped; pages not updated. See the log above."

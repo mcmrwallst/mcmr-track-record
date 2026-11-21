@@ -1,0 +1,15 @@
+# Exact versions for scripts/build_performance.py and its tests.
+# Pinned so the charts rebuild byte-for-byte on any machine with Python 3.11:
+# a different matplotlib or numpy can draw the same data with different SVG bytes.
+#   py -3.11 -m pip install -r scripts/requirements.txt
+matplotlib==3.11.2
+numpy==2.2.6
+contourpy==1.3.2
+cycler==0.12.1
+fonttools==4.68.0
+kiwisolver==1.5.1
+packaging==26.3
+pillow==12.2.0
+pyparsing==3.3.3
+python-dateutil==4.0.0
+pytest==9.1.1

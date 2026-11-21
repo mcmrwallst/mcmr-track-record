@@ -6,11 +6,11 @@ name: Upgrade timestamp proofs
 # calendar server. Once upgraded it is anchored in the blockchain and depends on
 # nobody at all.
 #
-# This job sweeps every pending proof weekly and commits the upgraded versions.
+# This job sweeps every pending proof daily and commits the upgraded versions.
 
 on:
   schedule:
-    - cron: '0 3 * * 0'      # Sundays, 03:00 UTC
+    - cron: '0 3 * * *'      # daily, 03:00 UTC
   workflow_dispatch:          # and on demand from the Actions tab
 
 permissions:

@@ -226,3 +226,16 @@ def test_readme_without_markers_is_untouched(tmp_path):
     readme.write_text("# Title\nno markers\n")
     assert not bp.update_readme({}, str(readme))
     assert readme.read_text() == "# Title\nno markers\n"
+
+
+# ---- proof of timing table --------------------------------------------------------
+
+def test_proof_table_rows():
+    sha = "a" * 40
+    proofs = {"trades/x.md": {"commit": sha, "by": ("2026-09-15T18:56:40Z", sha + ".json", "receipt")},
+              "trades/y.md": {"commit": sha, "by": ("2026-08-24T22:03:38Z", None, "GH Archive")},
+              "trades/z.md": {"commit": sha, "by": None}}
+    L = bp.proof_table(["trades/x.md", "trades/y.md", "trades/z.md"], proofs)
+    assert any("15 Sep 2026 18:56" in l and "Bitcoin proof" in l for l in L)
+    assert any("24 Aug 2026 22:03" in l and "[GH Archive]" in l for l in L)
+    assert any("not covered" in l for l in L)
