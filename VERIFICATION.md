@@ -5,9 +5,33 @@ prove, and how to check both without taking my word for anything. It is
 generated from the receipt files in `/receipts`, not written by hand, so it
 cannot drift out of line with the evidence.
 
-*Generated 2026-11-21 00:15 UTC — 43 of 43 commits attested.*
+*Generated 2026-11-21 00:44 UTC — 44 of 44 commits attested.*
 
 ---
+
+## Check a trade in 2 minutes
+
+No installs and no account needed.
+
+1. Open a thesis page from [Performance](PERFORMANCE.md) (Trades and theses).
+   The **Proof of timing** table at the bottom lists each file's first commit.
+2. **Click the commit.** GitHub shows the file exactly as first published. Check
+   the price, stop and wording against the page.
+3. **Click receipt.** `received_by_github_utc` is the time GitHub's own servers
+   received the push. I cannot set that clock.
+4. **Click Bitcoin**, then *Download raw file*. Download the receipt the same way.
+5. Go to [opentimestamps.org](https://opentimestamps.org), drop in the `.ots`
+   file, then the receipt when it asks for the original. It shows the Bitcoin
+   block that fixes the receipt's date. Change one character of the receipt and
+   the check fails.
+
+Why this covers the trade itself: the receipt contains the commit hash, and a
+commit hash is a fingerprint of every file and every earlier commit. Altering a
+trade file afterwards would change the hash and break the chain to the proof.
+A proof from the last day or so may still show *pending*; proofs are upgraded
+to a Bitcoin block daily. Files pushed before 11 September 2026 predate the
+receipts; their push times come from GitHub's event records, checked in
+[How to verify, independently](#how-to-verify-independently).
 
 ## The two timestamps
 
@@ -92,6 +116,7 @@ equally strong, and the table does not pretend otherwise.
 | `f30e51a2` `Merge branch 'main' into performance-build` | 2026-11-20 23:34:56Z | 2026-11-20 23:46:35Z | 11m | GitHub Actions receipt |
 | `231c4fad` `Add performance build script, tests and wor...` | 2026-11-20 23:42:31Z | 2026-11-20 23:46:35Z | 4m | GitHub Actions receipt |
 | `bee72880` `Simpler README and front page; reproducible...` | 2026-11-21 00:14:57Z | 2026-11-21 00:15:11Z | 14s | GitHub Actions receipt |
+| `9af9249c` `Proof table, 2-minute check, daily proof up...` | 2026-11-21 00:44:20Z | 2026-11-21 00:44:31Z | 11s | GitHub Actions receipt |
 
 ## External anchors (X)
 
@@ -168,6 +193,15 @@ finds them unaided will reasonably assume they were meant to stay hidden.
   headed "posted now so I can't move goalposts later."** That contradicts the
   section's purpose. It was not concealed and is not defended; it is why the
   ledger rule has since changed to forbid editing a published file at all.
+
+- **The ZB exit file was edited the evening it was published.** Commit
+  `a389355e`, about 4h30m after `2026-09-10-ZB-short-exit.md` was first pushed
+  and before the no-edit rule, filled template placeholders with the exit price
+  the file already stated (107'07'0), changed Brent from "approaching $100" to
+  "at $105", and removed a paragraph. That paragraph attributed the final
+  session to August PPI, which it called rate-path rather than term premium. It
+  bears on how fully the result confirms the term-premium thesis (TH01), so it is
+  listed here; the original text is in the commit history.
 
 - **A published file was edited after that rule was adopted.** Commit
   `755448aa`, about 3h40m after `2026-09-21_SPX_THESIS.md` was published, added a
