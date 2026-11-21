@@ -1,42 +1,74 @@
-# Performance
+# MCMR · Model Portfolio
 
-> **Model portfolio**: the reference book for my trading. Decisions are published and
-> timestamped in real time; live execution follows the same theses, though sizing and
-> timing can differ. Results are gross and are not an account statement. Returns are
-> **simple, not compounded**: % of starting equity, added across months (methodology §7).
-> Rules: [methodology v1.2](methodology/v1.md) · Data to 20 Nov 2026 close · Built from commit `231c4fa`
+**Discretionary macro, published before the outcome.** Data to 20 Nov 2026 close · inception 22 Jul 2026
 
-| Index | Since inception | Max drawdown (month-end) | Max drawdown (daily) | Current drawdown | Closed / open |
-|---|---|---|---|---|---|
-| 146.78 | +46.78% | -3.68% (Jul 2026 → Aug 2026) | -12.02% (5 Nov → 11 Nov) | 0.00% | 4 / 1 |
+<sub>Model portfolio: every decision is published and timestamped in real time; results are simple (not compounded), gross, and not an account statement.</sub>
 
-Compounded equivalent of the same monthly returns: **+52.06%** since inception, for comparison with records that compound. Every other figure on this page is simple (methodology §7).
+| Since inception | This month (to date) | Max drawdown | Win rate | Open positions |
+|:---:|:---:|:---:|:---:|:---:|
+| **+46.78%** | **+30.29%** | **−3.68%** | **50%** | **1** |
+| <sub>simple · compounded +52.06%</sub> | <sub>Nov 2026</sub> | <sub>month-end · daily −12.0%</sub> | <sub>2 of 4 · wins avg 4.2× losses</sub> | <sub>listed below</sub> |
 
-Inception 22 Jul 2026. Figures to 20 Nov 2026 include open positions at that day's close; month-end figures use completed months only. Drawdowns are in percentage points of starting equity.
+![Growth](performance/charts/index.svg)
 
-![Index](performance/charts/index.svg)
+### Monthly returns (%)
+
+| Year | Jan | Feb | Mar | Apr | May | Jun | Jul | Aug | Sep | Oct | Nov | Dec | Year |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 2026 |  |  |  |  |  |  | +3.11* | −3.68 | +13.82 | +3.23 | +30.29† |  | **+46.78†** |
+
+<sub>\* partial month · † to 20 Nov 2026, includes open position; not final</sub>
+
+### Open position
+
+| Trade | Thesis | Direction | Entry | Stop | Last close | Open result |
+|---|---|---|---:|---:|---:|---:|
+| [T005](performance/theses/TH03.md) | SPX Q4-2018 analog / AI capex | Short SPX | 7,773.07 | 7,861.50 | 6,910.39 | **+39.02%** (+9.76R) |
+
+<sub>Unrealised. Included in this month's figure, never in trade statistics.</sub>
+
+### Reports
+
+| Period | Return | Worst month-end drawdown | Report |
+|---|---:|---:|---|
+| 2026-Q4 | +33.52% | 0.00% | In progress |
+| [2026-Q3](performance/quarters/2026-Q3.md) | +13.26% | −3.68% | Frozen (backfilled) |
+| 2026 | +46.78% | −3.68% | In progress |
+
+---
+
+<details>
+<summary><b>Risk and statistics</b></summary>
 
 ![Drawdown](performance/charts/drawdown.svg)
 
-*Month-end values, with the daily drawdown line for comparison (methodology §8).*
+| Returns | | Trades | |
+|---|---:|---|---:|
+| Completed months | 4 | Closed trades | 4 |
+| Best / worst month | +13.82% / −3.68% | Win rate | 50% |
+| Positive months | 3 of 4 | Avg win / avg loss | +4.25R / −1.00R |
+| Max drawdown, month-end | −3.68% (Jul 2026 → Aug 2026) | Payoff ratio | 4.25 |
+| Max drawdown, daily | −12.02% (5 Nov → 11 Nov) | Expectancy | +1.62R |
+| Current drawdown | 0.00% | Profit factor | 4.25 |
+| Longest under water | 1 month | Best-trade share of total R | 73% (T002) |
+| Return ÷ max drawdown | 12.7 | Avg hold, winners / losers | 21.5 days / 7.5 days |
+| Avg / max risk per trade | 2.62% / 4.00% | Longest losing streak | 2 |
+| Max notional exposure | 771% of equity | Thesis hit rate | 100% (2 of 2 judged; 1 untested/open) |
 
-## Key statistics
+<sub>Returns and drawdowns are % of starting equity (simple). Annualised return, volatility, Sharpe, Sortino and S&P 500 correlation appear once 24 monthly returns exist (4 so far).</sub>
 
-| Returns (completed months, n = 4) | | Trades (closed, n = 4) | |
-|---|---|---|---|
-| Year to date | +46.78% | Trade win rate | 50% (2 of 4) |
-| Best / worst month | +13.82% / -3.68% | Thesis hit rate | 100% (2 of 2 judged; 1 untested/open) |
-| Positive months | 3 of 4 | Avg win / avg loss | +4.25R / -1.00R |
-| Longest under water | 1 month | Payoff ratio | 4.25 |
-| Return ÷ MDD (not annualised) | 12.7 | Expectancy | +1.62R |
-| Avg / max risk per trade | 2.62% / 4.00% | Profit factor | 4.25 |
-| Max notional exposure | 771% of equity | Best-trade share of total R | 73% (T002) |
-| | | Avg hold, winners / losers | 21.5 days / 7.5 days |
-| | | Longest losing streak | 2 |
+</details>
 
-*Annualised return, volatility, Sharpe, Sortino and correlation with the S&P 500 are withheld until 24 monthly returns exist (4 so far). See methodology §8.*
+<details>
+<summary><b>Trades and theses</b></summary>
 
-## Thesis × trade
+| Thesis | Trades | Closed R | Closed % | Verdict |
+|---|---|---:|---:|---|
+| [TH01 · Term-premium ceiling test](performance/theses/TH01.md) | 2 | +3.75R | +5.60% | Confirmed |
+| [TH02 · SPX vol asymmetry](performance/theses/TH02.md) | 2 | +2.74R | +2.16% | Confirmed |
+| [TH03 · SPX Q4-2018 analog / AI capex](performance/theses/TH03.md) | 0 + 1 open | — | — | Open |
+
+**Was the idea right, and did the trade pay?**
 
 |  | Trade won | Trade lost |
 |---|---|---|
@@ -44,48 +76,22 @@ Inception 22 Jul 2026. Figures to 20 Nov 2026 include open positions at that day
 | Thesis killed | 0 | 0 |
 | Untested / open | 0 | 0 |
 
-*Closed trades only. A confirmed thesis with a losing trade means the idea was right and the timing or sizing was not (methodology §9).*
-
-![Monthly returns](performance/charts/monthly.svg)
-
 ![Result per trade](performance/charts/trades_r.svg)
 
 ![Risk per trade](performance/charts/risk.svg)
 
-## Monthly returns (%)
+![Monthly returns](performance/charts/monthly.svg)
 
-| Year | Jan | Feb | Mar | Apr | May | Jun | Jul | Aug | Sep | Oct | Nov | Dec | Year |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 2026 |  |  |  |  |  |  | +3.11* | -3.68 | +13.82 | +3.23 | +30.29† |  | **+46.78†** |
+</details>
 
-*\* partial month (from inception).*
-*† to 20 Nov 2026 close, including open positions; not final.*
-*Jul 2026, Aug 2026, Sep 2026, Oct 2026: backfilled on 2026-11-20, from public closing prices.*
+<details>
+<summary><b>Method and data</b></summary>
 
-## Open positions (at 20 Nov 2026 close)
+- **Model portfolio.** The reference book for my trading. Live execution follows the same theses, though sizing and timing can differ.
+- **Simple returns.** % of starting equity, added across months. The compounded equivalent (+52.06%) is shown for comparison only.
+- **Valuation.** Open positions at the official close: month-end marks for monthly figures, the latest daily close for this month.
+- **Gross.** Transaction costs assumed negligible; futures carry not modelled.
+- **Backfilled months.** Jul 2026, Aug 2026, Sep 2026, Oct 2026 were calculated on 2026-11-20 from public closing prices, after the fact; later months freeze at month-end.
+- **Rules:** [methodology v1.2](methodology/v1.md). **Data:** [registry](performance/registry.csv) · [marks](performance/marks.csv) · [daily prices](performance/prices/) · [validation report](performance/VALIDATION.md). Built from data commit `bee7288`.
 
-| Trade | Thesis | Instrument | Entry | Stop | Close | Open R | Open % |
-|---|---|---|---:|---:|---:|---:|---:|
-| [T005](performance/theses/TH03.md) | TH03 | SPX | 7,773.07 | 7,861.50 | 6,910.39 | +9.76R | +39.02% |
-
-*Unrealised. Counted in the month-to-date figure; never in trade statistics.*
-
-## Theses
-
-| Thesis | Trades | Closed R | Closed % | Verdict |
-|---|---|---:|---:|---|
-| [TH01 Term-premium ceiling test](performance/theses/TH01.md) | 2 | +3.75R | +5.60% | Confirmed |
-| [TH02 SPX vol asymmetry](performance/theses/TH02.md) | 2 | +2.74R | +2.16% | Confirmed |
-| [TH03 SPX Q4-2018 analog / AI capex](performance/theses/TH03.md) | 0 + 1 open | — | — | Open |
-
-*Closed R and % are simple sums across the thesis's trades, not compounded.*
-
-## Reports
-
-| Period | Return | Worst month-end drawdown | Report |
-|---|---:|---:|---|
-| 2026-Q4 | +33.52% | 0.00% | In progress |
-| [2026-Q3](performance/quarters/2026-Q3.md) | +13.26% | -3.68% | Frozen (backfilled) |
-| 2026 | +46.78% | -3.68% | In progress |
-
-Data: [registry](performance/registry.csv) · [month-end marks](performance/marks.csv) · [daily prices](performance/prices/) · [validation report](performance/VALIDATION.md)
+</details>

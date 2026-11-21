@@ -5,7 +5,7 @@ prove, and how to check both without taking my word for anything. It is
 generated from the receipt files in `/receipts`, not written by hand, so it
 cannot drift out of line with the evidence.
 
-*Generated 2026-11-20 23:46 UTC — 42 of 42 commits attested.*
+*Generated 2026-11-21 00:15 UTC — 43 of 43 commits attested.*
 
 ---
 
@@ -91,6 +91,7 @@ equally strong, and the table does not pretend otherwise.
 | `1473b0b1` `Methodology 1.2: simple, non-compounded ret...` | 2026-11-20 23:33:45Z | 2026-11-20 23:34:01Z | 16s | GitHub Actions receipt |
 | `f30e51a2` `Merge branch 'main' into performance-build` | 2026-11-20 23:34:56Z | 2026-11-20 23:46:35Z | 11m | GitHub Actions receipt |
 | `231c4fad` `Add performance build script, tests and wor...` | 2026-11-20 23:42:31Z | 2026-11-20 23:46:35Z | 4m | GitHub Actions receipt |
+| `bee72880` `Simpler README and front page; reproducible...` | 2026-11-21 00:14:57Z | 2026-11-21 00:15:11Z | 14s | GitHub Actions receipt |
 
 ## External anchors (X)
 
