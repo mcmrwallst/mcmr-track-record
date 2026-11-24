@@ -1,6 +1,6 @@
 # Validation report
 
-Generated from commit `9717d70` with methodology v1.2. All checks passed; the build stops instead of publishing if any check fails.
+Generated from commit `e378ee0` with methodology v1.2. All checks passed; the build stops instead of publishing if any check fails.
 
 Checks run: required fields, event order, file and line references, R and % arithmetic, every fill inside that day's range, no stop traded before its exit, a month-end mark for every open position, marks equal to the daily closes.
 

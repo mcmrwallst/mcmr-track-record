@@ -92,6 +92,6 @@
 - **Valuation.** Open positions at the official close: month-end marks for monthly figures, the latest daily close for this month.
 - **Gross.** Transaction costs assumed negligible; futures carry not modelled.
 - **Backfilled months.** Jul 2026, Aug 2026, Sep 2026, Oct 2026 were calculated on 2026-11-20 from public closing prices, after the fact; later months freeze at month-end.
-- **Rules:** [methodology v1.2](methodology/v1.md). **Data:** [registry](performance/registry.csv) · [marks](performance/marks.csv) · [daily prices](performance/prices/) · [validation report](performance/VALIDATION.md). Built from data commit `9717d70`.
+- **Rules:** [methodology v1.2](methodology/v1.md). **Data:** [registry](performance/registry.csv) · [marks](performance/marks.csv) · [daily prices](performance/prices/) · [validation report](performance/VALIDATION.md). Built from data commit `e378ee0`.
 
 </details>
