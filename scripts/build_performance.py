@@ -1045,6 +1045,14 @@ def proof_index(files, receipts_dir="receipts"):
             except (OSError, ValueError, KeyError):
                 continue
     heads.sort()
+
+    def arrived(sha):
+        """Earliest recorded time GitHub held this commit (the push that delivered it)."""
+        for when, head, _, _ in heads:
+            if head == sha or _git("merge-base", "--is-ancestor", sha, head) is not None:
+                return when
+        return None
+
     out = {}
     for f in sorted(set(files)):
         added = _git("log", "--follow", "--diff-filter=A", "--format=%H", "--", f)
@@ -1056,8 +1064,10 @@ def proof_index(files, receipts_dir="receipts"):
             if head == sha or _git("merge-base", "--is-ancestor", sha, head) is not None:
                 if info["by"] is None:
                     info["by"] = (when, name, label)
-                if name == sha + ".json":         # the commit's own Bitcoin receipt: show it
-                    info["by"] = (when, name, label)
+                # A Bitcoin-stamped receipt made for the same push that delivered
+                # this commit covers it too (one push can carry several commits).
+                if name and (name == sha + ".json" or arrived(name[:-5]) == info["by"][0]):
+                    info["by"] = (when, name, label)   # the receipt's own time, as the reader will see on clicking it
                     break
         out[f] = info
     return out

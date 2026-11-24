@@ -135,6 +135,19 @@ def main():
             if cur is None or when_dt < cur[0]:
                 best[sha] = (when_dt, head, src)
 
+    # Bitcoin coverage: a commit counts as stamped when a Bitcoin-stamped
+    # receipt was made for the same push that delivered it. One push can carry
+    # several commits; only the last gets its own receipt file, and the hash
+    # chain covers the rest at the same moment.
+    stamped = set()
+    for f in glob.glob(os.path.join("receipts", "*.json.ots")):
+        head = os.path.basename(f)[:-len(".json.ots")]
+        if head not in best:
+            continue
+        for sha in ancestors(head):
+            if sha in best and best[sha][0] == best[head][0]:
+                stamped.add(sha)
+
     ordered = sorted(rows.items(), key=lambda kv: kv[1]["when"])
     attested = [s for s, _ in ordered if s in best]
     unattested = [s for s, _ in ordered if s not in best]
@@ -249,7 +262,7 @@ def main():
             # source happened to be earliest.
             if src == "GitHub Actions receipt":
                 src = "GitHub receipt"
-            if os.path.exists(os.path.join("receipts", sha + ".json.ots")):
+            if sha in stamped:
                 src += " + Bitcoin"
         else:
             gap = proven = src = "—"
