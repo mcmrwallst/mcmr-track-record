@@ -5,13 +5,23 @@ prove, and how to check both without taking my word for anything. It is
 generated from the receipt files in `/receipts`, not written by hand, so it
 cannot drift out of line with the evidence.
 
-*Generated 2026-11-21 00:56 UTC — 45 of 45 commits attested.*
+*Generated 2026-11-23 14:55 UTC — 45 of 45 commits attested.*
 
 ---
 
 ## Check a trade in 2 minutes
 
-No installs and no account needed.
+No installs, no downloads and no account needed.
+
+**Quickest check — GitHub's push log.** Open the repository's
+[Activity page](https://github.com/mcmrwallst/mcmr-track-record/activity?ref=main&sort=asc) (oldest first). Every push is listed with
+the time GitHub's servers received it — hover a date for the exact time. I
+cannot set, edit or delete those entries, and rewriting history would show
+up as a *force push*. There are none. Find the commit from a trade's
+**Proof of timing** table and read off when GitHub had it.
+
+**Backup check — Bitcoin.** Independent of GitHub, for pushes from
+11 September 2026 onward:
 
 1. Open a thesis page from [Performance](PERFORMANCE.md) (Trades and theses).
    The **Proof of timing** table at the bottom lists each file's first commit.
@@ -30,8 +40,7 @@ commit hash is a fingerprint of every file and every earlier commit. Altering a
 trade file afterwards would change the hash and break the chain to the proof.
 A proof from the last day or so may still show *pending*; proofs are upgraded
 to a Bitcoin block daily. Files pushed before 11 September 2026 predate the
-receipts; their push times come from GitHub's event records, checked in
-[How to verify, independently](#how-to-verify-independently).
+Bitcoin receipts; their push times come from GitHub's push log above.
 
 ## The two timestamps
 
@@ -73,51 +82,51 @@ equally strong, and the table does not pretend otherwise.
 
 | Commit | Claimed (UTC) | Proven to exist by | Gap | Source |
 |---|---|---|---|---|
-| `cde71dbc` `Initialize track record ledger: templates, ...` | 2026-07-22 08:16:23Z | 2026-07-22 19:33:49Z | 11h | GH Archive |
-| `7abda40a` `Update 2026-07-22_ES_UPDATE_EXAMPLE.md` | 2026-07-22 09:44:42Z | 2026-07-22 19:33:49Z | 9h | GH Archive |
-| `2e408074` `Create 2026-07-22_ZN_short_ceiling_test.md` | 2026-07-22 19:33:45Z | 2026-07-22 19:33:49Z | 4s | GH Archive |
-| `3db5d21d` `Update 2026-07-22_ZN_short_ceiling_test.md` | 2026-07-23 06:06:31Z | 2026-08-24 22:03:38Z | 32d | GitHub events API |
-| `cbf4ebc2` `Updates and Correction` | 2026-07-27 19:30:08Z | 2026-08-24 22:03:38Z | 28d | GitHub events API |
-| `5f6ca920` `Create 2026-07-22_ZN_short _ceiling_test_ex...` | 2026-08-05 09:18:03Z | 2026-08-24 22:03:38Z | 19d | GitHub events API |
-| `31bfe91f` `ZB short, ceiling test continues` | 2026-08-05 10:09:14Z | 2026-08-24 22:03:38Z | 19d | GitHub events API |
-| `ab8d507f` `This is a Update on ZB position` | 2026-08-24 22:03:33Z | 2026-08-24 22:03:38Z | 5s | GitHub events API |
-| `d1e2a1b0` `Update 2026-08-24_ZB_short_ceiling_test_upd...` | 2026-08-24 23:03:15Z | 2026-08-24 23:03:21Z | 6s | GitHub events API |
-| `a4050cf4` `Create 2026-09-02_SPX_short_vol_asymmetry_o...` | 2026-09-02 21:44:01Z | 2026-09-02 21:44:05Z | 4s | GitHub events API |
-| `5413626b` `Update 2026-09-02_SPX_short_vol_asymmetry_o...` | 2026-09-02 21:49:19Z | 2026-09-02 21:49:23Z | 4s | GitHub events API |
-| `6d5b964d` `Create 2026-09-03_SPX_short_vol_asymmetry_e...` | 2026-09-03 20:14:09Z | 2026-09-03 20:14:14Z | 5s | GitHub events API |
-| `ce3ebf35` `Create 2026-09-03_SPX_short_vol_asymmetry_r...` | 2026-09-03 20:40:55Z | 2026-09-03 20:41:01Z | 6s | GitHub events API |
-| `5ea054eb` `Create 2026-09-10-ZB-short-exit.md` | 2026-09-10 16:37:20Z | 2026-09-10 16:37:26Z | 6s | GitHub events API |
-| `3d725155` `Create 2026-09-10_SPX_short_vol_asymmetry_e...` | 2026-09-10 20:12:19Z | 2026-09-10 20:12:23Z | 4s | GitHub events API |
-| `a389355e` `Update 2026-09-10-ZB-short-exit.md` | 2026-09-10 21:09:50Z | 2026-09-11 18:23:26Z | 21h | GitHub Actions receipt |
-| `c045a204` `System updates` | 2026-09-11 18:22:53Z | 2026-09-11 18:23:26Z | 33s | GitHub Actions receipt |
-| `f0fc7bf0` `Update VERIFICATION.md` | 2026-09-11 18:35:48Z | 2026-09-11 18:36:07Z | 19s | GitHub Actions receipt |
-| `8bbc49bc` `This is the updates for the verification of...` | 2026-09-11 22:13:49Z | 2026-09-11 22:14:10Z | 21s | GitHub Actions receipt |
-| `521f298e` `Update VERIFICATION.md` | 2026-09-11 22:31:59Z | 2026-09-11 22:32:08Z | 9s | GitHub Actions receipt |
-| `c185912b` `update` | 2026-09-11 23:21:02Z | 2026-09-11 23:21:57Z | 55s | GitHub Actions receipt |
-| `42ae2802` `updates` | 2026-09-11 23:49:52Z | 2026-09-11 23:55:03Z | 5m | GitHub Actions receipt |
-| `e2db1aef` `Merge branch 'main' of github.com/mcmrwalls...` | 2026-09-11 23:52:21Z | 2026-09-11 23:55:03Z | 2m | GitHub Actions receipt |
-| `24e165b6` `Mark unresolvable X anchor` | 2026-09-11 23:53:01Z | 2026-09-11 23:55:03Z | 2m | GitHub Actions receipt |
-| `568cd322` `Create 2026-09-15_ZB_CONCLUSION.md` | 2026-09-15 18:56:00Z | 2026-09-15 18:56:40Z | 40s | GitHub Actions receipt |
-| `afd9c386` `Merge branch 'main' of github.com/mcmrwalls...` | 2026-09-15 18:56:06Z | 2026-09-15 18:56:40Z | 34s | GitHub Actions receipt |
-| `23a8ea63` `Update build_verification.py` | 2026-09-15 19:08:18Z | 2026-09-15 19:08:34Z | 16s | GitHub Actions receipt |
-| `604f54f7` `Create 2026-09-21_SPX_THESIS.md` | 2026-09-21 19:56:51Z | 2026-09-21 19:57:10Z | 19s | GitHub Actions receipt |
-| `755448aa` `Add notional exposure to position table` | 2026-09-21 23:38:55Z | 2026-09-21 23:39:09Z | 14s | GitHub Actions receipt |
-| `3d03ea28` `First signed commit` | 2026-10-02 16:05:27Z | 2026-10-02 16:09:46Z | 4m | GitHub Actions receipt |
-| `ee969d2a` `Create 2026-11-02_SPX500_UPDATE.md` | 2026-11-02 22:00:19Z | 2026-11-02 22:00:38Z | 19s | GitHub Actions receipt |
-| `3f9f253d` `Create 2026-11-03_SPX500_CORRECTION.md` | 2026-11-03 22:38:35Z | 2026-11-03 22:38:51Z | 16s | GitHub Actions receipt |
-| `28a20167` `Create 2026-11-05_SPX500_UPDATE.md` | 2026-11-05 22:18:14Z | 2026-11-05 22:18:27Z | 13s | GitHub Actions receipt |
-| `8a661f1a` `Clarify model portfolio; withdraw broker-ve...` | 2026-11-18 11:05:32Z | 2026-11-18 11:05:47Z | 15s | GitHub Actions receipt |
-| `3936c7f8` `Add reporting methodology v1` | 2026-11-18 11:16:48Z | 2026-11-18 11:17:08Z | 20s | GitHub Actions receipt |
-| `1e93fb37` `Create 2026-11-20_SPX500_UPDATE.md` | 2026-11-20 20:54:25Z | 2026-11-20 20:54:38Z | 13s | GitHub Actions receipt |
-| `d975d50f` `Add performance registry, marks and price data` | 2026-11-20 23:00:42Z | 2026-11-20 23:46:35Z | 45m | GitHub Actions receipt |
-| `94c8493d` `Methodology 1.1: date-only fills, single-co...` | 2026-11-20 23:05:26Z | 2026-11-20 23:05:49Z | 23s | GitHub Actions receipt |
-| `6fdb1722` `Merge branch 'main' into performance-build` | 2026-11-20 23:11:07Z | 2026-11-20 23:46:35Z | 35m | GitHub Actions receipt |
-| `1473b0b1` `Methodology 1.2: simple, non-compounded ret...` | 2026-11-20 23:33:45Z | 2026-11-20 23:34:01Z | 16s | GitHub Actions receipt |
-| `f30e51a2` `Merge branch 'main' into performance-build` | 2026-11-20 23:34:56Z | 2026-11-20 23:46:35Z | 11m | GitHub Actions receipt |
-| `231c4fad` `Add performance build script, tests and wor...` | 2026-11-20 23:42:31Z | 2026-11-20 23:46:35Z | 4m | GitHub Actions receipt |
-| `bee72880` `Simpler README and front page; reproducible...` | 2026-11-21 00:14:57Z | 2026-11-21 00:15:11Z | 14s | GitHub Actions receipt |
-| `9af9249c` `Proof table, 2-minute check, daily proof up...` | 2026-11-21 00:44:20Z | 2026-11-21 00:44:31Z | 11s | GitHub Actions receipt |
-| `e57f26db` `Readme edited and X account added` | 2026-11-21 00:56:18Z | 2026-11-21 00:56:31Z | 13s | GitHub Actions receipt |
+| `cde71dbc` `Initialize track record ledger: templates, ...` | 2026-07-22 08:16:23Z | 2026-07-22 09:31:15Z | 74m | GitHub push log |
+| `7abda40a` `Update 2026-07-22_ES_UPDATE_EXAMPLE.md` | 2026-07-22 09:44:42Z | 2026-07-22 09:44:47Z | 5s | GitHub push log |
+| `2e408074` `Create 2026-07-22_ZN_short_ceiling_test.md` | 2026-07-22 19:33:45Z | 2026-07-22 19:33:48Z | 3s | GitHub push log |
+| `3db5d21d` `Update 2026-07-22_ZN_short_ceiling_test.md` | 2026-07-23 06:06:31Z | 2026-07-23 06:06:46Z | 15s | GitHub push log |
+| `cbf4ebc2` `Updates and Correction` | 2026-07-27 19:30:08Z | 2026-07-27 19:30:42Z | 34s | GitHub push log |
+| `5f6ca920` `Create 2026-07-22_ZN_short _ceiling_test_ex...` | 2026-08-05 09:18:03Z | 2026-08-05 09:18:06Z | 3s | GitHub push log |
+| `31bfe91f` `ZB short, ceiling test continues` | 2026-08-05 10:09:14Z | 2026-08-05 10:09:18Z | 4s | GitHub push log |
+| `ab8d507f` `This is a Update on ZB position` | 2026-08-24 22:03:33Z | 2026-08-24 22:03:38Z | 5s | GitHub push log |
+| `d1e2a1b0` `Update 2026-08-24_ZB_short_ceiling_test_upd...` | 2026-08-24 23:03:15Z | 2026-08-24 23:03:20Z | 5s | GitHub push log |
+| `a4050cf4` `Create 2026-09-02_SPX_short_vol_asymmetry_o...` | 2026-09-02 21:44:01Z | 2026-09-02 21:44:05Z | 4s | GitHub push log |
+| `5413626b` `Update 2026-09-02_SPX_short_vol_asymmetry_o...` | 2026-09-02 21:49:19Z | 2026-09-02 21:49:22Z | 3s | GitHub push log |
+| `6d5b964d` `Create 2026-09-03_SPX_short_vol_asymmetry_e...` | 2026-09-03 20:14:09Z | 2026-09-03 20:14:13Z | 4s | GitHub push log |
+| `ce3ebf35` `Create 2026-09-03_SPX_short_vol_asymmetry_r...` | 2026-09-03 20:40:55Z | 2026-09-03 20:41:00Z | 5s | GitHub push log |
+| `5ea054eb` `Create 2026-09-10-ZB-short-exit.md` | 2026-09-10 16:37:20Z | 2026-09-10 16:37:25Z | 5s | GitHub push log |
+| `3d725155` `Create 2026-09-10_SPX_short_vol_asymmetry_e...` | 2026-09-10 20:12:19Z | 2026-09-10 20:12:22Z | 3s | GitHub push log |
+| `a389355e` `Update 2026-09-10-ZB-short-exit.md` | 2026-09-10 21:09:50Z | 2026-09-10 21:09:53Z | 3s | GitHub push log |
+| `c045a204` `System updates` | 2026-09-11 18:22:53Z | 2026-09-11 18:23:08Z | 15s | GitHub push log |
+| `f0fc7bf0` `Update VERIFICATION.md` | 2026-09-11 18:35:48Z | 2026-09-11 18:35:56Z | 8s | GitHub push log |
+| `8bbc49bc` `This is the updates for the verification of...` | 2026-09-11 22:13:49Z | 2026-09-11 22:13:59Z | 10s | GitHub push log |
+| `521f298e` `Update VERIFICATION.md` | 2026-09-11 22:31:59Z | 2026-09-11 22:31:59Z | 0s | GitHub push log |
+| `c185912b` `update` | 2026-09-11 23:21:02Z | 2026-09-11 23:21:47Z | 45s | GitHub push log |
+| `42ae2802` `updates` | 2026-09-11 23:49:52Z | 2026-09-11 23:54:53Z | 5m | GitHub push log |
+| `e2db1aef` `Merge branch 'main' of github.com/mcmrwalls...` | 2026-09-11 23:52:21Z | 2026-09-11 23:54:53Z | 2m | GitHub push log |
+| `24e165b6` `Mark unresolvable X anchor` | 2026-09-11 23:53:01Z | 2026-09-11 23:54:53Z | 112s | GitHub push log |
+| `568cd322` `Create 2026-09-15_ZB_CONCLUSION.md` | 2026-09-15 18:56:00Z | 2026-09-15 18:56:29Z | 29s | GitHub push log |
+| `afd9c386` `Merge branch 'main' of github.com/mcmrwalls...` | 2026-09-15 18:56:06Z | 2026-09-15 18:56:29Z | 23s | GitHub push log |
+| `23a8ea63` `Update build_verification.py` | 2026-09-15 19:08:18Z | 2026-09-15 19:08:23Z | 5s | GitHub push log |
+| `604f54f7` `Create 2026-09-21_SPX_THESIS.md` | 2026-09-21 19:56:51Z | 2026-09-21 19:56:57Z | 6s | GitHub push log |
+| `755448aa` `Add notional exposure to position table` | 2026-09-21 23:38:55Z | 2026-09-21 23:39:00Z | 5s | GitHub push log |
+| `3d03ea28` `First signed commit` | 2026-10-02 16:05:27Z | 2026-10-02 16:09:37Z | 4m | GitHub push log |
+| `ee969d2a` `Create 2026-11-02_SPX500_UPDATE.md` | 2026-11-02 22:00:19Z | 2026-11-02 22:00:23Z | 4s | GitHub push log |
+| `3f9f253d` `Create 2026-11-03_SPX500_CORRECTION.md` | 2026-11-03 22:38:35Z | 2026-11-03 22:38:39Z | 4s | GitHub push log |
+| `28a20167` `Create 2026-11-05_SPX500_UPDATE.md` | 2026-11-05 22:18:14Z | 2026-11-05 22:18:19Z | 5s | GitHub push log |
+| `8a661f1a` `Clarify model portfolio; withdraw broker-ve...` | 2026-11-18 11:05:32Z | 2026-11-18 11:05:39Z | 7s | GitHub push log |
+| `3936c7f8` `Add reporting methodology v1` | 2026-11-18 11:16:48Z | 2026-11-18 11:16:52Z | 4s | GitHub push log |
+| `1e93fb37` `Create 2026-11-20_SPX500_UPDATE.md` | 2026-11-20 20:54:25Z | 2026-11-20 20:54:29Z | 4s | GitHub push log |
+| `d975d50f` `Add performance registry, marks and price data` | 2026-11-20 23:00:42Z | 2026-11-20 23:46:27Z | 45m | GitHub push log |
+| `94c8493d` `Methodology 1.1: date-only fills, single-co...` | 2026-11-20 23:05:26Z | 2026-11-20 23:05:29Z | 3s | GitHub push log |
+| `6fdb1722` `Merge branch 'main' into performance-build` | 2026-11-20 23:11:07Z | 2026-11-20 23:46:27Z | 35m | GitHub push log |
+| `1473b0b1` `Methodology 1.2: simple, non-compounded ret...` | 2026-11-20 23:33:45Z | 2026-11-20 23:33:53Z | 8s | GitHub push log |
+| `f30e51a2` `Merge branch 'main' into performance-build` | 2026-11-20 23:34:56Z | 2026-11-20 23:46:27Z | 11m | GitHub push log |
+| `231c4fad` `Add performance build script, tests and wor...` | 2026-11-20 23:42:31Z | 2026-11-20 23:46:27Z | 3m | GitHub push log |
+| `bee72880` `Simpler README and front page; reproducible...` | 2026-11-21 00:14:57Z | 2026-11-21 00:15:02Z | 5s | GitHub push log |
+| `9af9249c` `Proof table, 2-minute check, daily proof up...` | 2026-11-21 00:44:20Z | 2026-11-21 00:44:24Z | 4s | GitHub push log |
+| `e57f26db` `Readme edited and X account added` | 2026-11-21 00:56:18Z | 2026-11-21 00:56:22Z | 4s | GitHub push log |
 
 ## External anchors (X)
 
@@ -159,7 +168,9 @@ like at specific past moments, which makes that check possible after the fact
 rather than only in the moment.
 
 **That commits reached GitHub no later than the times in the table above.**
-Receipts sourced from the GitHub events API are GitHub's own server-side
+Rows sourced from the GitHub push log are GitHub's own record of each push,
+readable by anyone on the repository's [Activity page](https://github.com/mcmrwallst/mcmr-track-record/activity?ref=main&sort=asc); the
+file in `/receipts` is only a copy of it. Receipts sourced from the GitHub events API are GitHub's own server-side
 records. Receipts sourced from GH Archive come from a permanent third-party
 mirror of GitHub's public event stream, operated by nobody connected to this
 account — each names the exact archive file it came from, so it can be
@@ -227,10 +238,18 @@ finds them unaided will reasonably assume they were meant to stay hidden.
   setup date onward; earlier ones are not, and their authorship is not
   cryptographically established.
 
-- **Early push events were nearly lost.** GitHub discards event history far
-  sooner than its documented 90 days. Receipts for July and early August were
-  recovered from GH Archive after GitHub had already dropped them. Coverage
-  before 24 August 2026 is therefore partial, as the gap column shows.
+- **Early push events were nearly lost, then found.** GitHub's events API
+  discards history far sooner than its documented 90 days, and GH Archive
+  missed four pushes between 23 July and 5 August 2026. Until 23 November 2026
+  this table bounded those four commits only by a push on 24 August (gaps of
+  19–32 days). GitHub's push log, which keeps every push, shows each was in
+  fact pushed within a minute of being committed. The log was always public;
+  it had simply not been used as a source.
+
+- **The push log depends on GitHub.** It is GitHub's record, not a third
+  party's. It would not survive deletion of the repository. Where a commit
+  also has a GH Archive or Bitcoin-stamped receipt, that is the stronger proof
+  even if its time is later.
 
 - **A rendered link in this document pointed at an unrelated account.** The
   coverage table truncates long commit subjects. Merge commits carry the clone
@@ -258,6 +277,12 @@ git fsck --full
 ```bash
 git log -p --follow -- trades/
 ```
+
+**Check GitHub's push log.** Open the
+[Activity page](https://github.com/mcmrwallst/mcmr-track-record/activity?ref=main&sort=asc) and compare it with
+`receipts/push_log_github_activity.json`. Each entry names the range pushed
+(`before`…`head`) and GitHub's time. A *force push* entry would mean history
+was rewritten.
 
 **Check a receipt against the third-party mirror.** Open the relevant file in
 `/receipts`, take the `received_by_github_utc` and `event_id`, then fetch the

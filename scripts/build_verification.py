@@ -22,6 +22,7 @@ from datetime import datetime, timezone
 
 REPO = "mcmrwallst/mcmr-track-record"
 OUT = "VERIFICATION.md"
+ACTIVITY_URL = f"https://github.com/{REPO}/activity?ref=main&sort=asc"
 ZERO = "0" * 40
 
 URL_RE = re.compile(r"https?://\S+")
@@ -69,7 +70,9 @@ def load_receipts():
         for ev in events:
             head, when = ev.get("head"), ev.get("received_by_github_utc")
             if head and when:
-                src = "GH Archive" if ev.get("source") == "gharchive" else "GitHub events API"
+                src = {"gharchive": "GH Archive",
+                       "github_activity": "GitHub push log"}.get(ev.get("source"),
+                                                                 "GitHub events API")
                 out.append((head, when, src))
     return out
 
@@ -151,7 +154,17 @@ def main():
     w("")
     w("## Check a trade in 2 minutes")
     w("")
-    w("No installs and no account needed.")
+    w("No installs, no downloads and no account needed.")
+    w("")
+    w("**Quickest check — GitHub's push log.** Open the repository's")
+    w(f"[Activity page]({ACTIVITY_URL}) (oldest first). Every push is listed with")
+    w("the time GitHub's servers received it — hover a date for the exact time. I")
+    w("cannot set, edit or delete those entries, and rewriting history would show")
+    w("up as a *force push*. There are none. Find the commit from a trade's")
+    w("**Proof of timing** table and read off when GitHub had it.")
+    w("")
+    w("**Backup check — Bitcoin.** Independent of GitHub, for pushes from")
+    w("11 September 2026 onward:")
     w("")
     w("1. Open a thesis page from [Performance](PERFORMANCE.md) (Trades and theses).")
     w("   The **Proof of timing** table at the bottom lists each file's first commit.")
@@ -170,8 +183,7 @@ def main():
     w("trade file afterwards would change the hash and break the chain to the proof.")
     w("A proof from the last day or so may still show *pending*; proofs are upgraded")
     w("to a Bitcoin block daily. Files pushed before 11 September 2026 predate the")
-    w("receipts; their push times come from GitHub's event records, checked in")
-    w("[How to verify, independently](#how-to-verify-independently).")
+    w("Bitcoin receipts; their push times come from GitHub's push log above.")
     w("")
     w("## The two timestamps")
     w("")
@@ -310,7 +322,9 @@ def main():
     w("rather than only in the moment.")
     w("")
     w("**That commits reached GitHub no later than the times in the table above.**")
-    w("Receipts sourced from the GitHub events API are GitHub's own server-side")
+    w("Rows sourced from the GitHub push log are GitHub's own record of each push,")
+    w(f"readable by anyone on the repository's [Activity page]({ACTIVITY_URL}); the")
+    w("file in `/receipts` is only a copy of it. Receipts sourced from the GitHub events API are GitHub's own server-side")
     w("records. Receipts sourced from GH Archive come from a permanent third-party")
     w("mirror of GitHub's public event stream, operated by nobody connected to this")
     w("account — each names the exact archive file it came from, so it can be")
@@ -378,10 +392,18 @@ def main():
     w("  setup date onward; earlier ones are not, and their authorship is not")
     w("  cryptographically established.")
     w("")
-    w("- **Early push events were nearly lost.** GitHub discards event history far")
-    w("  sooner than its documented 90 days. Receipts for July and early August were")
-    w("  recovered from GH Archive after GitHub had already dropped them. Coverage")
-    w("  before 24 August 2026 is therefore partial, as the gap column shows.")
+    w("- **Early push events were nearly lost, then found.** GitHub's events API")
+    w("  discards history far sooner than its documented 90 days, and GH Archive")
+    w("  missed four pushes between 23 July and 5 August 2026. Until 23 November 2026")
+    w("  this table bounded those four commits only by a push on 24 August (gaps of")
+    w("  19–32 days). GitHub's push log, which keeps every push, shows each was in")
+    w("  fact pushed within a minute of being committed. The log was always public;")
+    w("  it had simply not been used as a source.")
+    w("")
+    w("- **The push log depends on GitHub.** It is GitHub's record, not a third")
+    w("  party's. It would not survive deletion of the repository. Where a commit")
+    w("  also has a GH Archive or Bitcoin-stamped receipt, that is the stronger proof")
+    w("  even if its time is later.")
     w("")
     w("- **A rendered link in this document pointed at an unrelated account.** The")
     w("  coverage table truncates long commit subjects. Merge commits carry the clone")
@@ -409,6 +431,12 @@ def main():
     w("```bash")
     w("git log -p --follow -- trades/")
     w("```")
+    w("")
+    w("**Check GitHub's push log.** Open the")
+    w(f"[Activity page]({ACTIVITY_URL}) and compare it with")
+    w("`receipts/push_log_github_activity.json`. Each entry names the range pushed")
+    w("(`before`…`head`) and GitHub's time. A *force push* entry would mean history")
+    w("was rewritten.")
     w("")
     w("**Check a receipt against the third-party mirror.** Open the relevant file in")
     w("`/receipts`, take the `received_by_github_utc` and `event_id`, then fetch the")

@@ -52,6 +52,7 @@ BACKFILL_AFTER_DAYS = 7           # a period frozen later than this is labelled 
 MIN_MONTHS_FOR_ANNUALISED = 24    # methodology §8 gate
 
 REPO_URL = "https://github.com/mcmrwallst/mcmr-track-record"
+ACTIVITY_URL = REPO_URL + "/activity?ref=main&sort=asc"
 MINUS = "\u2212"                  # typographic minus for displayed figures
 GREEN = "#1D9E75"
 RED = "#D85A30"
@@ -1023,7 +1024,8 @@ def proof_index(files, receipts_dir="receipts"):
     backfill). A record for any later commit also covers every commit before it."""
     heads = []                                    # (utc, head sha, receipt file or None, label)
     for name, label in (("push_receipts_backfill.json", "GitHub event log"),
-                        ("push_receipts_gharchive.json", "GH Archive")):
+                        ("push_receipts_gharchive.json", "GH Archive"),
+                        ("push_log_github_activity.json", "GitHub push log")):
         try:
             d = json.load(open(os.path.join(receipts_dir, name), encoding="utf-8"))
         except (OSError, ValueError):
@@ -1049,11 +1051,16 @@ def proof_index(files, receipts_dir="receipts"):
         if not added:
             continue
         sha = added.splitlines()[-1]
-        info = {"commit": sha, "by": None}
+        info = {"commit": sha, "by": None, "bitcoin": None}
         for when, head, name, label in heads:
             if head == sha or _git("merge-base", "--is-ancestor", sha, head) is not None:
-                info["by"] = (when, name, label)
-                break
+                if info["by"] is None:
+                    info["by"] = (when, name, label)
+                if name:                          # earliest Bitcoin-stamped receipt
+                    info["bitcoin"] = name
+                    if name == sha + ".json":     # the commit's own receipt: show it
+                        info["by"] = (when, name, label)
+                    break
         out[f] = info
     return out
 
@@ -1080,8 +1087,13 @@ def proof_table(files, proofs):
         if info["by"]:
             when, rec, label = info["by"]
             row += f"{_utc_short(when)} | "
-            row += (f"[receipt](../../receipts/{rec}) · [Bitcoin proof](../../receipts/{rec}.ots) |"
-                    if rec else f"[{label}](../../VERIFICATION.md#coverage) |")
+            if rec:
+                row += f"[receipt](../../receipts/{rec}) · [Bitcoin proof](../../receipts/{rec}.ots) |"
+            else:
+                link = ACTIVITY_URL if label == "GitHub push log" else "../../VERIFICATION.md#coverage"
+                row += f"[{label}]({link})"
+                btc = info.get("bitcoin")
+                row += (f" · [Bitcoin proof](../../receipts/{btc}.ots) |" if btc else " |")
         else:
             row += "— | [not covered](../../VERIFICATION.md#coverage) |"
         L.append(row)
