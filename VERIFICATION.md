@@ -5,7 +5,7 @@ prove, and how to check both without taking my word for anything. It is
 generated from the receipt files in `/receipts`, not written by hand, so it
 cannot drift out of line with the evidence.
 
-*Generated 2026-11-24 12:40 UTC — 47 of 47 commits attested.*
+*Generated 2026-11-24 12:44 UTC — 47 of 47 commits attested.*
 
 ---
 
@@ -98,37 +98,37 @@ equally strong, and the table does not pretend otherwise.
 | `5ea054eb` `Create 2026-09-10-ZB-short-exit.md` | 2026-09-10 16:37:20Z | 2026-09-10 16:37:25Z | 5s | GitHub push log |
 | `3d725155` `Create 2026-09-10_SPX_short_vol_asymmetry_e...` | 2026-09-10 20:12:19Z | 2026-09-10 20:12:22Z | 3s | GitHub push log |
 | `a389355e` `Update 2026-09-10-ZB-short-exit.md` | 2026-09-10 21:09:50Z | 2026-09-10 21:09:53Z | 3s | GitHub push log |
-| `c045a204` `System updates` | 2026-09-11 18:22:53Z | 2026-09-11 18:23:08Z | 15s | GitHub push log |
-| `f0fc7bf0` `Update VERIFICATION.md` | 2026-09-11 18:35:48Z | 2026-09-11 18:35:56Z | 8s | GitHub push log |
-| `8bbc49bc` `This is the updates for the verification of...` | 2026-09-11 22:13:49Z | 2026-09-11 22:13:59Z | 10s | GitHub push log |
-| `521f298e` `Update VERIFICATION.md` | 2026-09-11 22:31:59Z | 2026-09-11 22:31:59Z | 0s | GitHub push log |
-| `c185912b` `update` | 2026-09-11 23:21:02Z | 2026-09-11 23:21:47Z | 45s | GitHub push log |
+| `c045a204` `System updates` | 2026-09-11 18:22:53Z | 2026-09-11 18:23:08Z | 15s | GitHub push log + Bitcoin |
+| `f0fc7bf0` `Update VERIFICATION.md` | 2026-09-11 18:35:48Z | 2026-09-11 18:35:56Z | 8s | GitHub push log + Bitcoin |
+| `8bbc49bc` `This is the updates for the verification of...` | 2026-09-11 22:13:49Z | 2026-09-11 22:13:59Z | 10s | GitHub push log + Bitcoin |
+| `521f298e` `Update VERIFICATION.md` | 2026-09-11 22:31:59Z | 2026-09-11 22:31:59Z | 0s | GitHub push log + Bitcoin |
+| `c185912b` `update` | 2026-09-11 23:21:02Z | 2026-09-11 23:21:47Z | 45s | GitHub push log + Bitcoin |
 | `42ae2802` `updates` | 2026-09-11 23:49:52Z | 2026-09-11 23:54:53Z | 5m | GitHub push log |
 | `e2db1aef` `Merge branch 'main' of github.com/mcmrwalls...` | 2026-09-11 23:52:21Z | 2026-09-11 23:54:53Z | 2m | GitHub push log |
-| `24e165b6` `Mark unresolvable X anchor` | 2026-09-11 23:53:01Z | 2026-09-11 23:54:53Z | 112s | GitHub push log |
+| `24e165b6` `Mark unresolvable X anchor` | 2026-09-11 23:53:01Z | 2026-09-11 23:54:53Z | 112s | GitHub push log + Bitcoin |
 | `568cd322` `Create 2026-09-15_ZB_CONCLUSION.md` | 2026-09-15 18:56:00Z | 2026-09-15 18:56:29Z | 29s | GitHub push log |
-| `afd9c386` `Merge branch 'main' of github.com/mcmrwalls...` | 2026-09-15 18:56:06Z | 2026-09-15 18:56:29Z | 23s | GitHub push log |
-| `23a8ea63` `Update build_verification.py` | 2026-09-15 19:08:18Z | 2026-09-15 19:08:23Z | 5s | GitHub push log |
-| `604f54f7` `Create 2026-09-21_SPX_THESIS.md` | 2026-09-21 19:56:51Z | 2026-09-21 19:56:57Z | 6s | GitHub push log |
-| `755448aa` `Add notional exposure to position table` | 2026-09-21 23:38:55Z | 2026-09-21 23:39:00Z | 5s | GitHub push log |
-| `3d03ea28` `First signed commit` | 2026-10-02 16:05:27Z | 2026-10-02 16:09:37Z | 4m | GitHub push log |
-| `ee969d2a` `Create 2026-11-02_SPX500_UPDATE.md` | 2026-11-02 22:00:19Z | 2026-11-02 22:00:23Z | 4s | GitHub push log |
-| `3f9f253d` `Create 2026-11-03_SPX500_CORRECTION.md` | 2026-11-03 22:38:35Z | 2026-11-03 22:38:39Z | 4s | GitHub push log |
-| `28a20167` `Create 2026-11-05_SPX500_UPDATE.md` | 2026-11-05 22:18:14Z | 2026-11-05 22:18:19Z | 5s | GitHub push log |
-| `8a661f1a` `Clarify model portfolio; withdraw broker-ve...` | 2026-11-18 11:05:32Z | 2026-11-18 11:05:39Z | 7s | GitHub push log |
-| `3936c7f8` `Add reporting methodology v1` | 2026-11-18 11:16:48Z | 2026-11-18 11:16:52Z | 4s | GitHub push log |
-| `1e93fb37` `Create 2026-11-20_SPX500_UPDATE.md` | 2026-11-20 20:54:25Z | 2026-11-20 20:54:29Z | 4s | GitHub push log |
+| `afd9c386` `Merge branch 'main' of github.com/mcmrwalls...` | 2026-09-15 18:56:06Z | 2026-09-15 18:56:29Z | 23s | GitHub push log + Bitcoin |
+| `23a8ea63` `Update build_verification.py` | 2026-09-15 19:08:18Z | 2026-09-15 19:08:23Z | 5s | GitHub push log + Bitcoin |
+| `604f54f7` `Create 2026-09-21_SPX_THESIS.md` | 2026-09-21 19:56:51Z | 2026-09-21 19:56:57Z | 6s | GitHub push log + Bitcoin |
+| `755448aa` `Add notional exposure to position table` | 2026-09-21 23:38:55Z | 2026-09-21 23:39:00Z | 5s | GitHub push log + Bitcoin |
+| `3d03ea28` `First signed commit` | 2026-10-02 16:05:27Z | 2026-10-02 16:09:37Z | 4m | GitHub push log + Bitcoin |
+| `ee969d2a` `Create 2026-11-02_SPX500_UPDATE.md` | 2026-11-02 22:00:19Z | 2026-11-02 22:00:23Z | 4s | GitHub push log + Bitcoin |
+| `3f9f253d` `Create 2026-11-03_SPX500_CORRECTION.md` | 2026-11-03 22:38:35Z | 2026-11-03 22:38:39Z | 4s | GitHub push log + Bitcoin |
+| `28a20167` `Create 2026-11-05_SPX500_UPDATE.md` | 2026-11-05 22:18:14Z | 2026-11-05 22:18:19Z | 5s | GitHub push log + Bitcoin |
+| `8a661f1a` `Clarify model portfolio; withdraw broker-ve...` | 2026-11-18 11:05:32Z | 2026-11-18 11:05:39Z | 7s | GitHub push log + Bitcoin |
+| `3936c7f8` `Add reporting methodology v1` | 2026-11-18 11:16:48Z | 2026-11-18 11:16:52Z | 4s | GitHub push log + Bitcoin |
+| `1e93fb37` `Create 2026-11-20_SPX500_UPDATE.md` | 2026-11-20 20:54:25Z | 2026-11-20 20:54:29Z | 4s | GitHub push log + Bitcoin |
 | `d975d50f` `Add performance registry, marks and price data` | 2026-11-20 23:00:42Z | 2026-11-20 23:46:27Z | 45m | GitHub push log |
-| `94c8493d` `Methodology 1.1: date-only fills, single-co...` | 2026-11-20 23:05:26Z | 2026-11-20 23:05:29Z | 3s | GitHub push log |
+| `94c8493d` `Methodology 1.1: date-only fills, single-co...` | 2026-11-20 23:05:26Z | 2026-11-20 23:05:29Z | 3s | GitHub push log + Bitcoin |
 | `6fdb1722` `Merge branch 'main' into performance-build` | 2026-11-20 23:11:07Z | 2026-11-20 23:46:27Z | 35m | GitHub push log |
-| `1473b0b1` `Methodology 1.2: simple, non-compounded ret...` | 2026-11-20 23:33:45Z | 2026-11-20 23:33:53Z | 8s | GitHub push log |
+| `1473b0b1` `Methodology 1.2: simple, non-compounded ret...` | 2026-11-20 23:33:45Z | 2026-11-20 23:33:53Z | 8s | GitHub push log + Bitcoin |
 | `f30e51a2` `Merge branch 'main' into performance-build` | 2026-11-20 23:34:56Z | 2026-11-20 23:46:27Z | 11m | GitHub push log |
-| `231c4fad` `Add performance build script, tests and wor...` | 2026-11-20 23:42:31Z | 2026-11-20 23:46:27Z | 3m | GitHub push log |
-| `bee72880` `Simpler README and front page; reproducible...` | 2026-11-21 00:14:57Z | 2026-11-21 00:15:02Z | 5s | GitHub push log |
-| `9af9249c` `Proof table, 2-minute check, daily proof up...` | 2026-11-21 00:44:20Z | 2026-11-21 00:44:24Z | 4s | GitHub push log |
-| `e57f26db` `Readme edited and X account added` | 2026-11-21 00:56:18Z | 2026-11-21 00:56:22Z | 4s | GitHub push log |
-| `9717d70e` `Add GitHub push log as timing source` | 2026-11-24 09:27:24Z | 2026-11-24 09:27:42Z | 18s | GitHub Actions receipt |
-| `3ab255eb` `Add Internet Archive copy of push log` | 2026-11-24 12:39:43Z | 2026-11-24 12:40:05Z | 22s | GitHub Actions receipt |
+| `231c4fad` `Add performance build script, tests and wor...` | 2026-11-20 23:42:31Z | 2026-11-20 23:46:27Z | 3m | GitHub push log + Bitcoin |
+| `bee72880` `Simpler README and front page; reproducible...` | 2026-11-21 00:14:57Z | 2026-11-21 00:15:02Z | 5s | GitHub push log + Bitcoin |
+| `9af9249c` `Proof table, 2-minute check, daily proof up...` | 2026-11-21 00:44:20Z | 2026-11-21 00:44:24Z | 4s | GitHub push log + Bitcoin |
+| `e57f26db` `Readme edited and X account added` | 2026-11-21 00:56:18Z | 2026-11-21 00:56:22Z | 4s | GitHub push log + Bitcoin |
+| `9717d70e` `Add GitHub push log as timing source` | 2026-11-24 09:27:24Z | 2026-11-24 09:27:42Z | 18s | GitHub receipt + Bitcoin |
+| `3ab255eb` `Add Internet Archive copy of push log` | 2026-11-24 12:39:43Z | 2026-11-24 12:40:05Z | 22s | GitHub receipt + Bitcoin |
 
 ## External anchors (X)
 

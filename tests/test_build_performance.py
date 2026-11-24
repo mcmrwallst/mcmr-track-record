@@ -241,11 +241,11 @@ def test_proof_table_rows():
     assert any("not covered" in l for l in L)
 
 
-def test_proof_table_push_log_links_activity_and_bitcoin():
+def test_proof_table_push_log_links_activity_page():
     sha = "b" * 40
-    proofs = {"trades/p.md": {"commit": sha, "bitcoin": "c" * 40 + ".json",
+    proofs = {"trades/p.md": {"commit": sha,
                               "by": ("2026-08-05T10:09:18Z", None, "GitHub push log")}}
     L = bp.proof_table(["trades/p.md"], proofs)
     row = [l for l in L if "p.md" in l][0]
     assert "5 Aug 2026 10:09" in row
-    assert "/activity?ref=main&sort=asc" in row and "Bitcoin proof" in row
+    assert "/activity?ref=main&sort=asc" in row and "Bitcoin proof" not in row

@@ -245,6 +245,12 @@ def main():
             else:
                 gap = f"{secs // 86400}d"
             proven = when_dt.strftime("%Y-%m-%d %H:%M:%SZ")
+            # A commit with its own Bitcoin-stamped receipt says so, whichever
+            # source happened to be earliest.
+            if src == "GitHub Actions receipt":
+                src = "GitHub receipt"
+            if os.path.exists(os.path.join("receipts", sha + ".json.ots")):
+                src += " + Bitcoin"
         else:
             gap = proven = src = "—"
         w(f"| `{sha[:8]}` `{subject}` | {meta['when'].strftime('%Y-%m-%d %H:%M:%SZ')} "

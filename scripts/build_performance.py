@@ -1051,15 +1051,13 @@ def proof_index(files, receipts_dir="receipts"):
         if not added:
             continue
         sha = added.splitlines()[-1]
-        info = {"commit": sha, "by": None, "bitcoin": None}
+        info = {"commit": sha, "by": None}
         for when, head, name, label in heads:
             if head == sha or _git("merge-base", "--is-ancestor", sha, head) is not None:
                 if info["by"] is None:
                     info["by"] = (when, name, label)
-                if name:                          # earliest Bitcoin-stamped receipt
-                    info["bitcoin"] = name
-                    if name == sha + ".json":     # the commit's own receipt: show it
-                        info["by"] = (when, name, label)
+                if name == sha + ".json":         # the commit's own Bitcoin receipt: show it
+                    info["by"] = (when, name, label)
                     break
         out[f] = info
     return out
@@ -1091,9 +1089,7 @@ def proof_table(files, proofs):
                 row += f"[receipt](../../receipts/{rec}) · [Bitcoin proof](../../receipts/{rec}.ots) |"
             else:
                 link = ACTIVITY_URL if label == "GitHub push log" else "../../VERIFICATION.md#coverage"
-                row += f"[{label}]({link})"
-                btc = info.get("bitcoin")
-                row += (f" · [Bitcoin proof](../../receipts/{btc}.ots) |" if btc else " |")
+                row += f"[{label}]({link}) |"
         else:
             row += "— | [not covered](../../VERIFICATION.md#coverage) |"
         L.append(row)
