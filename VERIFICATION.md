@@ -5,7 +5,7 @@ prove, and how to check both without taking my word for anything. It is
 generated from the receipt files in `/receipts`, not written by hand, so it
 cannot drift out of line with the evidence.
 
-*Generated 2026-11-24 09:27 UTC — 46 of 46 commits attested.*
+*Generated 2026-11-24 12:35 UTC — 46 of 46 commits attested.*
 
 ---
 
@@ -248,7 +248,8 @@ finds them unaided will reasonably assume they were meant to stay hidden.
   it had simply not been used as a source.
 
 - **The push log depends on GitHub.** It is GitHub's record, not a third
-  party's. It would not survive deletion of the repository. Where a commit
+  party's. It would not survive deletion of the repository, which is why
+  the Internet Archive holds a copy (see below). Where a commit
   also has a GH Archive or Bitcoin-stamped receipt, that is the stronger proof
   even if its time is later.
 
@@ -278,6 +279,12 @@ git fsck --full
 ```bash
 git log -p --follow -- trades/
 ```
+
+**Check the outside copy.** The Internet Archive saved the push log on
+24 November 2026 ([snapshot](https://web.archive.org/web/20261124093542/https://github.com/mcmrwallst/mcmr-track-record/activity?ref=main&sort=asc)), covering pushes from 22 July
+to 15 September 2026. The page looks blank there. To read it, open
+`view-source:https://web.archive.org/web/20261124093542id_/https://github.com/mcmrwallst/mcmr-track-record/activity?ref=main&sort=asc`
+and search (Ctrl+F) for a commit, e.g. `31bfe91`.
 
 **Check GitHub's push log.** Open the
 [Activity page](https://github.com/mcmrwallst/mcmr-track-record/activity?ref=main&sort=asc) and compare it with

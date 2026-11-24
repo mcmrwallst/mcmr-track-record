@@ -23,6 +23,8 @@ from datetime import datetime, timezone
 REPO = "mcmrwallst/mcmr-track-record"
 OUT = "VERIFICATION.md"
 ACTIVITY_URL = f"https://github.com/{REPO}/activity?ref=main&sort=asc"
+WAYBACK_URL = "https://web.archive.org/web/20261124093542/" + ACTIVITY_URL
+WAYBACK_RAW = "https://web.archive.org/web/20261124093542id_/" + ACTIVITY_URL
 ZERO = "0" * 40
 
 URL_RE = re.compile(r"https?://\S+")
@@ -401,7 +403,8 @@ def main():
     w("  it had simply not been used as a source.")
     w("")
     w("- **The push log depends on GitHub.** It is GitHub's record, not a third")
-    w("  party's. It would not survive deletion of the repository. Where a commit")
+    w("  party's. It would not survive deletion of the repository, which is why")
+    w("  the Internet Archive holds a copy (see below). Where a commit")
     w("  also has a GH Archive or Bitcoin-stamped receipt, that is the stronger proof")
     w("  even if its time is later.")
     w("")
@@ -431,6 +434,12 @@ def main():
     w("```bash")
     w("git log -p --follow -- trades/")
     w("```")
+    w("")
+    w("**Check the outside copy.** The Internet Archive saved the push log on")
+    w(f"24 November 2026 ([snapshot]({WAYBACK_URL})), covering pushes from 22 July")
+    w("to 15 September 2026. The page looks blank there. To read it, open")
+    w(f"`view-source:{WAYBACK_RAW}`")
+    w("and search (Ctrl+F) for a commit, e.g. `31bfe91`.")
     w("")
     w("**Check GitHub's push log.** Open the")
     w(f"[Activity page]({ACTIVITY_URL}) and compare it with")

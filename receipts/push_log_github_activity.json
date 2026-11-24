@@ -3,7 +3,16 @@
  "_this_file_is_a_copy": "This file is a convenience copy and is NOT the evidence. The evidence is the live page below, served by GitHub. Check any row against it.",
  "_how_to_verify": "Open https://github.com/mcmrwallst/mcmr-track-record/activity?ref=main&sort=asc and compare. Hover a date to see the exact time. Every entry names the commit range pushed (before...head).",
  "live_source": "https://github.com/mcmrwallst/mcmr-track-record/activity?ref=main&sort=asc",
- "independent_copies": [],
+ "independent_copies": [
+  {
+   "archive": "Internet Archive Wayback Machine",
+   "captured_utc": "2026-11-24T09:35:42Z",
+   "url": "https://web.archive.org/web/20261124093542/https://github.com/mcmrwallst/mcmr-track-record/activity?ref=main&sort=asc",
+   "raw_data_url": "https://web.archive.org/web/20261124093542id_/https://github.com/mcmrwallst/mcmr-track-record/activity?ref=main&sort=asc",
+   "covers": "First 30 pushes (22 Jul to 15 Sep 2026), including the four July-August pushes that have no other receipt.",
+   "how_to_check": "The archived page renders blank because GitHub builds it with JavaScript. The data is inside it: open view-source: followed by raw_data_url, press Ctrl+F and search for a commit hash, e.g. 31bfe91. The pushedAt value next to it is GitHub's push time."
+  }
+ ],
  "repository": "mcmrwallst/mcmr-track-record",
  "captured_at_utc": "2026-11-23T15:05:00Z",
  "push_event_count": 68,
